@@ -550,14 +550,14 @@ Once these style preferences have been set, you should see something similar to 
 
 <figure>
 	<a id="fig:icyTree-mcc"></a>
-	<img style="width:100%;" src="figures/icyTree_mcc.png" alt="">
+	<img style="width:100%;" src="figures/icytree_mcc.png" alt="">
 	<figcaption>Figure 22: The MCC summary tree in IcyTree.</figcaption>
 </figure>
 <br>
 
 <figure>
 	<a id="fig:icyTree-ccd0"></a>
-	<img style="width:100%;" src="figures/icyTree_ccd0.png" alt="">
+	<img style="width:100%;" src="figures/icytree_ccd0.png" alt="">
 	<figcaption>Figure 23: The CCD0 summary tree in IcyTree.</figcaption>
 </figure>
 <br>
