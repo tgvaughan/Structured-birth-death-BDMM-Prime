@@ -244,7 +244,7 @@ This way, the `Substitution rate` is not actually a rate, but rather a rate mult
 ## Setting the clock model
 
 To speed up the analysis we will assume a strict clock for this small dataset.
-dataset. However, the selection of a clock model for a different, real analysis should not be taken lightly.
+However, the selection of a clock model for a different, real analysis should not be taken lightly.
 Since our alignment contains sequences sampled at different times and those times are measured in years, we must use a clock rate expressed in units of expected substitutions per site per year.
 Usually the precise value is unknown and so the default behaviour of BEAUti is to assume this rate has to be estimated.
 To speed up mixing we set the starting value of the `Clock rate` to 0.005, which we know from research to be much closer to the truth than the default value of 1.
