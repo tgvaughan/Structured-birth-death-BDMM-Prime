@@ -60,7 +60,7 @@ Tracer ([https://github.com/beast-dev/tracer/releases/](https://github.com/beast
 IcyTree ([https://icytree.org](https://icytree.org)) is a browser-based phylogenetic tree viewer. It is intended for rapid visualisation of phylogenetic tree files. It can also render phylogenetic networks provided in extended Newick format. IcyTree is compatible with current versions of Mozilla Firefox and Google Chrome.
 
 
-## Installing the `BDMM-Prime` package
+## Installing the BDMM-Prime package
 
 You can easily install the `BDMM-Prime` package via BEAUti's package manager.  To do this, follow these steps:
 
@@ -70,20 +70,19 @@ You can easily install the `BDMM-Prime` package via BEAUti's package manager.  T
 >
 > Find **BDMM-Prime** in the list of packages shown, select it and then click **Install/Upgrade**.
 
-The BEAUTi window should look similar to what is shown in [Figure 1](#fig:install-bdmm-prime).
-Note the actual version of `bdmm` may differ from the version shown in the figure, which is perfectly normal.
-Also note that `bdmm` depends on the `MultiTypeTree` package. And on `MASTER` from version v0.3.0 upward. BEAUTi will install the dependencies automatically once you select to install `bdmm`.
+The BEAUTi window should look similar to what is shown below.
+Note the actual version of `BDMM-Prime` may differ from the version shown in the figure, which is perfectly normal.
 
 <figure>
 	<a id="fig:install-bdmm-prime"></a>
 	<img style="width:75%;" src="figures/1-install-bdmm-prime.png" alt="">
-	<figcaption>Figure 1: Install bdmm.</figcaption>
+	<figcaption>Install `BDMM-Prime`.</figcaption>
 </figure>
 <br>
 
 Finally, **restart BEAUti.**  The restart is necessary for the packages to be successfully installed.
 
-If you get an error message stating that you are missing a package on which `bdmm-prime` depends, install that package manually using the package manager as done above, and **restart BEAUti** again.
+If you get an error message stating that you are missing a package on which `BDMM-Prime` depends, install that package manually using the package manager as done above, and **restart BEAUti** again.
 
 # Setting up the analysis using BEAUti
 
@@ -111,15 +110,15 @@ is the GenBank accession number of the sequence, the second is the geographical
 region from which it was sampled, and the third is the time at which it was
 sampled measured in calendar years or fractions thereof.
 
-In this tutorial we will be using the influenza sequence data which can be found in the `examples` folder of the `bdmm-prime` package.
-To make it easier to find when loading the alignment, you can optionally set the working directory of BEAST2 to `bdmm-prime`.
+In this tutorial we will be using the influenza sequence data which can be found in the `examples` folder of the `BDMM-Prime` package.
+To make it easier to find when loading the alignment, you can optionally set the working directory of BEAST2 to `BDMM-Prime`.
 This will make BEAUTi open the appropriate package folder when you look for the alignment.
-To set the working directory, select `File > Set working dir > BDMM-Prime`, as shown in [Figure 3](#fig:working-dir).
+To set the working directory, select `File > Set working dir > BDMM-Prime`, as shown below.
 
 <figure>
 	<a id="fig:working-dir"></a>
 	<img style="width:100%;" src="figures/3-set-working-dir.png" alt="">
-	<figcaption>Figure 3: Optional step: set the working directory to BDMM-Prime.</figcaption>
+	<figcaption>Optional step: set the working directory to BDMM-Prime.</figcaption>
 </figure>
 <br>
 
@@ -130,12 +129,12 @@ file is named `h3n2_2deme.fna`.
 Assuming you have followed the previous step to set the working directory, this can be found in the `examples/` directory shown when the file selection dialog box appears.
 In case you have not followed the previous step you will have to locate the folder containing the `BDMM-Prime` package and look for the `examples/` folder there.
 
-Once the sequence file is loaded, your BEAUti screen should look similar to what is shown in [Figure 4](#fig:alignment).
+Once the sequence file is loaded, your BEAUti screen should look similar to that shown below:
 
 <figure>
 	<a id="fig:alignment"></a>
 	<img style="width:100%;" src="figures/4-alignment-loaded.png" alt="">
-	<figcaption>Figure 4: The alignment loaded into BEAUti.</figcaption>
+	<figcaption>The alignment loaded into BEAUti.</figcaption>
 </figure>
 <br>
 
@@ -152,24 +151,24 @@ Once the data is loaded, the next step is to specify the times at which the sequ
 >
 > Because the times are included as the last element of the underscore-delimited sequence names, choose the **use everything** radio button and select **after last** from the drop-down menu. The default delimiter is already the underscore, so there is no need to change that.
 
-The date parsing setup will look as shown in [Figure 5](#fig:tip-dates).
+The date parsing setup will look as shown in below.
 
 <figure>
 	<a id="fig:tip-dates"></a>
 	<img style="width:75%;" src="figures/5-tip-dates.png" alt="">
-	<figcaption>Figure 5: Guessing the tip dates.</figcaption>
+	<figcaption>Assigning the tip dates.</figcaption>
 </figure>
 <br>
 
 After clicking `OK` you should find that the tip date table is filled with
 times that match those in the sequence headers, and that the last column of the
 table contains heights, i.e. times before most recent sample, calculated from the times.
-The BEAUTi panel should look as shown in [Figure 6](#fig:tip-dates).
+The BEAUTi panel should look as shown below.
 
 <figure>
 	<a id="fig:tip-dates-set"></a>
 	<img style="width:100%;" src="figures/6-tip-dates-set.png" alt="">
-	<figcaption>Figure 6: Sampling dates as seen in BEAUti.</figcaption>
+	<figcaption>Sampling dates as seen in BEAUti.</figcaption>
 </figure>
 <br>
 
@@ -200,12 +199,12 @@ up slightly for this tutorial analysis.
 > Set **Frequencies** to **Empirical**.
 >
 
-The BEAUti panel should now look as shown in [Figure 9](#fig:site-model).
+The BEAUti panel should now look as shown below:
 
 <figure>
 	<a id="fig:site-model"></a>
 	<img style="width:100%;" src="figures/9-sitemodel.png" alt="">
-	<figcaption>Figure 9: Setup of the site model.</figcaption>
+	<figcaption>Setup of the site model.</figcaption>
 </figure>
 <br>
 
@@ -235,12 +234,12 @@ the default value.
 > Set the starting value of the `Clock rate` to 0.005. (Implicit units are substitutions per
 > site per year.)
 > 
-The `Clock Model` panel should now look as shown in [Figure 10](#fig:strict-clock).
+The `Clock Model` panel should now look as shown below.
 
 <figure>
 	<a id="fig:strict-clock"></a>
 	<img style="width:100%;" src="figures/10-strict-clock.png" alt="">
-	<figcaption>Figure 10: Fix the clock rate to speed up mixing.</figcaption>
+	<figcaption>Fix the clock rate to speed up mixing.</figcaption>
 </figure>
 <br>
 
@@ -279,7 +278,7 @@ samples included in our analysis.
 <figure>
 	<a id="fig:tip-types"></a>
 	<img style="width:100%;" src="figures/7-tip-types.png" alt="">
-	<figcaption>Figure 7: Setting the tip types using Auto-configure.</figcaption>
+	<figcaption>Setting the tip types using Auto-configure.</figcaption>
 </figure>
 <br>
 
@@ -289,7 +288,7 @@ The table should now be populated with types extracted from the sample names.
 <figure>
 	<a id="fig:tip-types-set"></a>
 	<img style="width:100%;" src="figures/8-tip-types-set.png" alt="">
-	<figcaption>Figure 8: Setting the tip types.</figcaption>
+	<figcaption>Setting the tip types.</figcaption>
 </figure>
 <br>
 
@@ -713,7 +712,7 @@ distribution.
 > 
 > Set the **Target tree type** to the **Maximum clade credibility tree** and set **Node heights** to **Mean heights**.
 > 
-> Select the `h3n2-bdmm.h3n2_2deme.typedNode.trees` tree file as the input file and `h3n2-bdmm.h3n2_2deme.mcc_summary.trees` as the output file
+> Select the `h3n2-bdmmprime.h3n2_2deme.typed.node.trees` tree file as the input file and `h3n2-bdmmprime.h3n2_2deme.mcc_summary.trees` as the output file
 > 
 > Pressing the **Run** button will produce an annotated summary tree.
 
@@ -744,12 +743,12 @@ To produce CCD0 summary tree, you will first need to install the CCD package.
 </figure>
 <br>
 
-Now you can proceed to make CCD0 tree. Use the exactly same set up as for MCC tree but select **MAP (CCD0)** as **Target tree type** and `h3n2-bdmm.h3n2_2deme.ccd0_summary.trees` as the output file.
+Now you can proceed to make CCD0 tree. Use the exactly same set up as for MCC tree but select **MAP (CCD0)** as **Target tree type** and `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.trees` as the output file.
 
 
 ## Visualising the summary tree
 
-To visualize this tree, open IcyTree once more (maybe open it in a new browser tab), choose `File > Load from file`, then use file selection dialog and select either select either `h3n2-bdmm.h3n2_2deme.mcc_summary.trees` or `h3n2-bdmm.h3n2_2deme.ccd0_summary.trees` to load MCC or CCD0 summary tree respectivelly.
+To visualize this tree, open IcyTree once more (maybe open it in a new browser tab), choose `File > Load from file`, then use file selection dialog and select either select either `h3n2-bdmmprime.h3n2_2deme.mcc_summary.trees` or `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.trees` to load MCC or CCD0 summary tree respectivelly.
 Follow the instructions provided above to colour the tree by the `type` attribute and add the legend and time axis.
 In addition, open the `Style` menu and select `Node height error bars > height_95%_HPD` to add error bars to the internal node heights.
 Finally, open the `Style` menu and select `Relative edge width > type.prob`.
@@ -783,8 +782,6 @@ The analysis therefore strongly supports a Hong Kong origin over a New Zealand o
 Now, compare the figures for MCC and CCD0 summary trees. Can you see some differences?
 
 One of the CCD0 summary method advantages is that it can evaluate tree topologies that were not sampled during the MCMC. This is why it usually performs better on high-entropy (uncertain, spread out) tree posterior. Knowing this, what observations can you make about our sample?
-
-<!--[Very useful final notes from Tim](https://github.com/CompEvol/MultiTypeTree/wiki/Beginner%27s-Tutorial-%28short-version%29#final-notes)-->
 
 ----
 
