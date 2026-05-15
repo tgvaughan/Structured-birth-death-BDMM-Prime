@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='MultiTypeBirthDeath' beautistatus='' namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="BEAST.base v2.7.4:BDMM v2.0.0:MultiTypeTree v8.0.0" version="2.7">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='Standard' beautistatus='' namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood" required="BEAST.base v2.7.8:BDMM-Prime v2.7.1:SA v2.1.1" version="2.7">
 
     <data
 id="h3n2_2deme"
@@ -88,151 +88,202 @@ name="alignment">
 
     <run id="mcmc" spec="MCMC" chainLength="10000000">
         <state id="state" spec="State" storeEvery="5000">
-            <stateNode id="Tree.t:h3n2_2deme" spec="multitypetree.evolution.tree.StructuredCoalescentMultiTypeTree">
-                <migrationModel id="migModel.t:h3n2_2deme" spec="multitypetree.evolution.tree.SCMigrationModel">
-                    <parameter id="RealParameter.0" spec="parameter.RealParameter" dimension="2" estimate="false" name="rateMatrix">1.0 1.0</parameter>
-                    <parameter id="RealParameter.1" spec="parameter.RealParameter" estimate="false" name="rateMatrixScaleFactor">1.0</parameter>
-                    <parameter id="RealParameter.2" spec="parameter.RealParameter" dimension="2" estimate="false" name="popSizes">1.0 1.0</parameter>
-                    <parameter id="RealParameter.3" spec="parameter.RealParameter" estimate="false" name="popSizesScaleFactor">1.0</parameter>
-                    <typeSet id="typeSet.t:h3n2_2deme" spec="multitypetree.evolution.tree.TypeSet">
-                        <typeTraitSet id="typeTraitSetInput.t:h3n2_2deme" spec="beast.base.evolution.tree.TraitSet" traitname="type" value="EU856841_HongKong_2005.34246575=HongKong,EU856989_HongKong_2002.58356164=HongKong,CY039495_HongKong_2004.5890411=HongKong,EU856853_HongKong_2001.17808219=HongKong,EU857026_HongKong_2003.51232877=HongKong,EU856916_HongKong_2002.26849315=HongKong,EU857018_HongKong_2001.85479452=HongKong,EU857052_HongKong_2002.9890411=HongKong,EU857042_HongKong_2004.61917808=HongKong,EU856945_HongKong_2001.5369863=HongKong,EU856865_HongKong_2001.21643836=HongKong,CY038959_HongKong_2004.19178082=HongKong,EU857065_HongKong_2002.09315068=HongKong,EU856838_HongKong_2005.33972603=HongKong,EU857037_HongKong_2004.6=HongKong,EU856904_HongKong_2000.09863014=HongKong,CY043768_HongKong_2005.52328767=HongKong,EU856859_HongKong_2003.16438356=HongKong,EU857043_HongKong_2004.63013699=HongKong,CY040314_HongKong_2004.73150685=HongKong,EU856863_HongKong_2001.20547945=HongKong,EU857068_HongKong_2003.10410959=HongKong,CY039239_HongKong_2005.37534247=HongKong,EU857031_HongKong_2001.98630137=HongKong,EU857033_HongKong_2001.99178082=HongKong,CY038751_HongKong_2005.54246575=HongKong,CY038671_HongKong_2004.8=HongKong,EU857011_HongKong_2005.56986301=HongKong,EU857024_HongKong_2004.51506849=HongKong,EU857084_HongKong_2003.73972603=HongKong,CY011728_NewZealand_2003.44383562=NewZealand,CY007395_NewZealand_2004.63287671=NewZealand,CY007059_NewZealand_2003.50958904=NewZealand,CY008139_NewZealand_2000.65479452=NewZealand,CY007011_NewZealand_2003.61917808=NewZealand,CY008196_NewZealand_2003.54520548=NewZealand,CY007227_NewZealand_2003.54246575=NewZealand,CY011020_NewZealand_2000.64109589=NewZealand,CY008828_NewZealand_2000.79178082=NewZealand,CY009404_NewZealand_2001.50410959=NewZealand,CY008620_NewZealand_2005.66849315=NewZealand,CY007795_NewZealand_2005.17534247=NewZealand,CY007923_NewZealand_2002.48219178=NewZealand,CY007203_NewZealand_2003.53972603=NewZealand,CY012432_NewZealand_2000.81643836=NewZealand,CY013096_NewZealand_2002.55890411=NewZealand,CY008652_NewZealand_2005.66849315=NewZealand,CY008380_NewZealand_2005.54246575=NewZealand,CY012376_NewZealand_2003.53972603=NewZealand,CY011064_NewZealand_2000.67671233=NewZealand,CY013072_NewZealand_2001.36986301=NewZealand,CY007667_NewZealand_2002.35616438=NewZealand,CY016467_NewZealand_2005.60821918=NewZealand,CY008388_NewZealand_2005.57260274=NewZealand,CY011960_NewZealand_2000.6630137=NewZealand,CY008420_NewZealand_2005.58630137=NewZealand,CY012640_NewZealand_2002.43287671=NewZealand,CY012000_NewZealand_2002.52054795=NewZealand,CY007267_NewZealand_2003.62739726=NewZealand,CY002938_NewZealand_2004.68767123=NewZealand">
-                            <taxa id="TaxonSet.0" spec="TaxonSet">
-                                <alignment idref="h3n2_2deme"/>
-                            </taxa>
-                        </typeTraitSet>
-                    </typeSet>
-                </migrationModel>
-                <typeTrait idref="typeTraitSetInput.t:h3n2_2deme"/>
-                <typeSet idref="typeSet.t:h3n2_2deme"/>
-                <trait id="dateTrait.t:h3n2_2deme" spec="beast.base.evolution.tree.TraitSet" taxa="@TaxonSet.0" traitname="date" value="EU856841_HongKong_2005.34246575=2005.34246575,EU856989_HongKong_2002.58356164=2002.58356164,CY039495_HongKong_2004.5890411=2004.5890411,EU856853_HongKong_2001.17808219=2001.17808219,EU857026_HongKong_2003.51232877=2003.51232877,EU856916_HongKong_2002.26849315=2002.26849315,EU857018_HongKong_2001.85479452=2001.85479452,EU857052_HongKong_2002.9890411=2002.9890411,EU857042_HongKong_2004.61917808=2004.61917808,EU856945_HongKong_2001.5369863=2001.5369863,EU856865_HongKong_2001.21643836=2001.21643836,CY038959_HongKong_2004.19178082=2004.19178082,EU857065_HongKong_2002.09315068=2002.09315068,EU856838_HongKong_2005.33972603=2005.33972603,EU857037_HongKong_2004.6=2004.6,EU856904_HongKong_2000.09863014=2000.09863014,CY043768_HongKong_2005.52328767=2005.52328767,EU856859_HongKong_2003.16438356=2003.16438356,EU857043_HongKong_2004.63013699=2004.63013699,CY040314_HongKong_2004.73150685=2004.73150685,EU856863_HongKong_2001.20547945=2001.20547945,EU857068_HongKong_2003.10410959=2003.10410959,CY039239_HongKong_2005.37534247=2005.37534247,EU857031_HongKong_2001.98630137=2001.98630137,EU857033_HongKong_2001.99178082=2001.99178082,CY038751_HongKong_2005.54246575=2005.54246575,CY038671_HongKong_2004.8=2004.8,EU857011_HongKong_2005.56986301=2005.56986301,EU857024_HongKong_2004.51506849=2004.51506849,EU857084_HongKong_2003.73972603=2003.73972603,CY011728_NewZealand_2003.44383562=2003.44383562,CY007395_NewZealand_2004.63287671=2004.63287671,CY007059_NewZealand_2003.50958904=2003.50958904,CY008139_NewZealand_2000.65479452=2000.65479452,CY007011_NewZealand_2003.61917808=2003.61917808,CY008196_NewZealand_2003.54520548=2003.54520548,CY007227_NewZealand_2003.54246575=2003.54246575,CY011020_NewZealand_2000.64109589=2000.64109589,CY008828_NewZealand_2000.79178082=2000.79178082,CY009404_NewZealand_2001.50410959=2001.50410959,CY008620_NewZealand_2005.66849315=2005.66849315,CY007795_NewZealand_2005.17534247=2005.17534247,CY007923_NewZealand_2002.48219178=2002.48219178,CY007203_NewZealand_2003.53972603=2003.53972603,CY012432_NewZealand_2000.81643836=2000.81643836,CY013096_NewZealand_2002.55890411=2002.55890411,CY008652_NewZealand_2005.66849315=2005.66849315,CY008380_NewZealand_2005.54246575=2005.54246575,CY012376_NewZealand_2003.53972603=2003.53972603,CY011064_NewZealand_2000.67671233=2000.67671233,CY013072_NewZealand_2001.36986301=2001.36986301,CY007667_NewZealand_2002.35616438=2002.35616438,CY016467_NewZealand_2005.60821918=2005.60821918,CY008388_NewZealand_2005.57260274=2005.57260274,CY011960_NewZealand_2000.6630137=2000.6630137,CY008420_NewZealand_2005.58630137=2005.58630137,CY012640_NewZealand_2002.43287671=2002.43287671,CY012000_NewZealand_2002.52054795=2002.52054795,CY007267_NewZealand_2003.62739726=2003.62739726,CY002938_NewZealand_2004.68767123=2004.68767123"/>
-                <taxonset idref="TaxonSet.0"/>
-            </stateNode>
-            <parameter id="R0.t:h3n2_2deme" spec="parameter.RealParameter" dimension="2" lower="0.0" name="stateNode" upper="Infinity">2.0 2.0</parameter>
-            <parameter id="becomeUninfectiousRate.t:h3n2_2deme" spec="parameter.RealParameter" dimension="2" lower="0.0" name="stateNode" upper="Infinity">1.0 1.0</parameter>
-            <parameter id="samplingProportion.t:h3n2_2deme" spec="parameter.RealParameter" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.0 0.01 0.0 0.01</parameter>
-            <parameter id="rateMatrix.t:h3n2_2deme" spec="parameter.RealParameter" dimension="2" lower="0.0" name="stateNode" upper="100.0">0.1 0.1</parameter>
-            <parameter id="geo-frequencies.t:h3n2_2deme" spec="parameter.RealParameter" dimension="2" lower="0.0" name="stateNode" upper="1.0">0.5 0.5</parameter>
-            <parameter id="clockRate.c:h3n2_2deme" spec="parameter.RealParameter" name="stateNode">0.005</parameter>
-            <parameter id="gammaShape.s:h3n2_2deme" spec="parameter.RealParameter" name="stateNode">1.0</parameter>
+            <tree id="Tree.t:h3n2_2deme" spec="beast.base.evolution.tree.Tree" name="stateNode">
+                <trait id="dateTrait.t:h3n2_2deme" spec="beast.base.evolution.tree.TraitSet" traitname="date" value="EU856841_HongKong_2005.34246575=2005.34246575,EU856989_HongKong_2002.58356164=2002.58356164,CY039495_HongKong_2004.5890411=2004.5890411,EU856853_HongKong_2001.17808219=2001.17808219,EU857026_HongKong_2003.51232877=2003.51232877,EU856916_HongKong_2002.26849315=2002.26849315,EU857018_HongKong_2001.85479452=2001.85479452,EU857052_HongKong_2002.9890411=2002.9890411,EU857042_HongKong_2004.61917808=2004.61917808,EU856945_HongKong_2001.5369863=2001.5369863,EU856865_HongKong_2001.21643836=2001.21643836,CY038959_HongKong_2004.19178082=2004.19178082,EU857065_HongKong_2002.09315068=2002.09315068,EU856838_HongKong_2005.33972603=2005.33972603,EU857037_HongKong_2004.6=2004.6,EU856904_HongKong_2000.09863014=2000.09863014,CY043768_HongKong_2005.52328767=2005.52328767,EU856859_HongKong_2003.16438356=2003.16438356,EU857043_HongKong_2004.63013699=2004.63013699,CY040314_HongKong_2004.73150685=2004.73150685,EU856863_HongKong_2001.20547945=2001.20547945,EU857068_HongKong_2003.10410959=2003.10410959,CY039239_HongKong_2005.37534247=2005.37534247,EU857031_HongKong_2001.98630137=2001.98630137,EU857033_HongKong_2001.99178082=2001.99178082,CY038751_HongKong_2005.54246575=2005.54246575,CY038671_HongKong_2004.8=2004.8,EU857011_HongKong_2005.56986301=2005.56986301,EU857024_HongKong_2004.51506849=2004.51506849,EU857084_HongKong_2003.73972603=2003.73972603,CY011728_NewZealand_2003.44383562=2003.44383562,CY007395_NewZealand_2004.63287671=2004.63287671,CY007059_NewZealand_2003.50958904=2003.50958904,CY008139_NewZealand_2000.65479452=2000.65479452,CY007011_NewZealand_2003.61917808=2003.61917808,CY008196_NewZealand_2003.54520548=2003.54520548,CY007227_NewZealand_2003.54246575=2003.54246575,CY011020_NewZealand_2000.64109589=2000.64109589,CY008828_NewZealand_2000.79178082=2000.79178082,CY009404_NewZealand_2001.50410959=2001.50410959,CY008620_NewZealand_2005.66849315=2005.66849315,CY007795_NewZealand_2005.17534247=2005.17534247,CY007923_NewZealand_2002.48219178=2002.48219178,CY007203_NewZealand_2003.53972603=2003.53972603,CY012432_NewZealand_2000.81643836=2000.81643836,CY013096_NewZealand_2002.55890411=2002.55890411,CY008652_NewZealand_2005.66849315=2005.66849315,CY008380_NewZealand_2005.54246575=2005.54246575,CY012376_NewZealand_2003.53972603=2003.53972603,CY011064_NewZealand_2000.67671233=2000.67671233,CY013072_NewZealand_2001.36986301=2001.36986301,CY007667_NewZealand_2002.35616438=2002.35616438,CY016467_NewZealand_2005.60821918=2005.60821918,CY008388_NewZealand_2005.57260274=2005.57260274,CY011960_NewZealand_2000.6630137=2000.6630137,CY008420_NewZealand_2005.58630137=2005.58630137,CY012640_NewZealand_2002.43287671=2002.43287671,CY012000_NewZealand_2002.52054795=2002.52054795,CY007267_NewZealand_2003.62739726=2003.62739726,CY002938_NewZealand_2004.68767123=2004.68767123">
+                    <taxa id="TaxonSet.h3n2_2deme" spec="TaxonSet">
+                        <alignment idref="h3n2_2deme"/>
+                    </taxa>
+                </trait>
+                <taxonset idref="TaxonSet.h3n2_2deme"/>
+            </tree>
+            <parameter id="clockRate.c:h3n2_2deme" spec="parameter.RealParameter" lower="0.0" name="stateNode">0.005</parameter>
+            <parameter id="kappa.s:h3n2_2deme" spec="parameter.RealParameter" lower="0.0" name="stateNode">2.0</parameter>
+            <parameter id="gammaShape.s:h3n2_2deme" spec="parameter.RealParameter" lower="0.1" name="stateNode">1.0</parameter>
+            <parameter id="originBDMMPrime.t:h3n2_2deme" spec="parameter.RealParameter" name="stateNode">10.0</parameter>
+            <parameter id="ReEpi.t:h3n2_2deme" spec="parameter.RealParameter" dimension="2" lower="0.0" name="stateNode">1.0 1.0</parameter>
+            <parameter id="becomeUninfectiousRateEpi.t:h3n2_2deme" spec="parameter.RealParameter" lower="0.0" name="stateNode">52.0</parameter>
+            <parameter id="samplingProportionEpi.t:h3n2_2deme" spec="parameter.RealParameter" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.1 0.1 0.0 0.0</parameter>
+            <parameter id="migrationRateEpi.t:h3n2_2deme" spec="parameter.RealParameter" dimension="2" lower="0.0" name="stateNode">0.1 0.1</parameter>
         </state>
+        <init id="RandomTree.t:h3n2_2deme" spec="RandomTree" estimate="false" initial="@Tree.t:h3n2_2deme" taxa="@h3n2_2deme">
+            <populationModel id="ConstantPopulation0.t:h3n2_2deme" spec="ConstantPopulation">
+                <parameter id="randomPopSize.t:h3n2_2deme" spec="parameter.RealParameter" name="popSize">1.0</parameter>
+            </populationModel>
+        </init>
         <distribution id="posterior" spec="CompoundDistribution">
             <distribution id="prior" spec="CompoundDistribution">
-                <distribution id="birthDeathMigration.t:h3n2_2deme" spec="bdmm.evolution.speciation.BirthDeathMigrationModel" R0="@R0.t:h3n2_2deme" becomeUninfectiousRate="@becomeUninfectiousRate.t:h3n2_2deme" checkRho="false" frequencies="@geo-frequencies.t:h3n2_2deme" migrationMatrix="@rateMatrix.t:h3n2_2deme" samplingProportion="@samplingProportion.t:h3n2_2deme" stateNumber="2" tree="@Tree.t:h3n2_2deme">
-                    <parameter id="samplingRateChangeTimes.s:h3n2_2deme" spec="parameter.RealParameter" dimension="2" name="samplingRateChangeTimes">0.0 5.57</parameter>
-                    <reverseTimeArrays id="BooleanParameter.0" spec="parameter.BooleanParameter" dimension="6">false false true false false false</reverseTimeArrays>
+                <distribution id="BDMMPrime.t:h3n2_2deme" spec="bdmmprime.distribution.BirthDeathMigrationDistribution" tree="@Tree.t:h3n2_2deme">
+                    <parameterization id="EpiBDMMPrimeParameterization.t:h3n2_2deme" spec="bdmmprime.parameterization.EpiParameterization">
+                        <Re id="ReSPEpi.t:h3n2_2deme" spec="bdmmprime.parameterization.SkylineVectorParameter" isScalar="false" skylineValues="@ReEpi.t:h3n2_2deme" timesAreAges="true">
+                            <processLength id="processLengthBDMMPrime.t:h3n2_2deme" spec="bdmmprime.util.ProcessLength" origin="@originBDMMPrime.t:h3n2_2deme"/>
+                            <typeSet id="typeSetBDMMPrime.t:h3n2_2deme" spec="bdmmprime.parameterization.TypeSet">
+                                <typeTraitSet id="typeTraitSet.t:h3n2_2deme" spec="bdmmprime.util.InitializedTraitSet" traitname="type" value="EU856841_HongKong_2005.34246575=HongKong,EU856989_HongKong_2002.58356164=HongKong,CY039495_HongKong_2004.5890411=HongKong,EU856853_HongKong_2001.17808219=HongKong,EU857026_HongKong_2003.51232877=HongKong,EU856916_HongKong_2002.26849315=HongKong,EU857018_HongKong_2001.85479452=HongKong,EU857052_HongKong_2002.9890411=HongKong,EU857042_HongKong_2004.61917808=HongKong,EU856945_HongKong_2001.5369863=HongKong,EU856865_HongKong_2001.21643836=HongKong,CY038959_HongKong_2004.19178082=HongKong,EU857065_HongKong_2002.09315068=HongKong,EU856838_HongKong_2005.33972603=HongKong,EU857037_HongKong_2004.6=HongKong,EU856904_HongKong_2000.09863014=HongKong,CY043768_HongKong_2005.52328767=HongKong,EU856859_HongKong_2003.16438356=HongKong,EU857043_HongKong_2004.63013699=HongKong,CY040314_HongKong_2004.73150685=HongKong,EU856863_HongKong_2001.20547945=HongKong,EU857068_HongKong_2003.10410959=HongKong,CY039239_HongKong_2005.37534247=HongKong,EU857031_HongKong_2001.98630137=HongKong,EU857033_HongKong_2001.99178082=HongKong,CY038751_HongKong_2005.54246575=HongKong,CY038671_HongKong_2004.8=HongKong,EU857011_HongKong_2005.56986301=HongKong,EU857024_HongKong_2004.51506849=HongKong,EU857084_HongKong_2003.73972603=HongKong,CY011728_NewZealand_2003.44383562=NewZealand,CY007395_NewZealand_2004.63287671=NewZealand,CY007059_NewZealand_2003.50958904=NewZealand,CY008139_NewZealand_2000.65479452=NewZealand,CY007011_NewZealand_2003.61917808=NewZealand,CY008196_NewZealand_2003.54520548=NewZealand,CY007227_NewZealand_2003.54246575=NewZealand,CY011020_NewZealand_2000.64109589=NewZealand,CY008828_NewZealand_2000.79178082=NewZealand,CY009404_NewZealand_2001.50410959=NewZealand,CY008620_NewZealand_2005.66849315=NewZealand,CY007795_NewZealand_2005.17534247=NewZealand,CY007923_NewZealand_2002.48219178=NewZealand,CY007203_NewZealand_2003.53972603=NewZealand,CY012432_NewZealand_2000.81643836=NewZealand,CY013096_NewZealand_2002.55890411=NewZealand,CY008652_NewZealand_2005.66849315=NewZealand,CY008380_NewZealand_2005.54246575=NewZealand,CY012376_NewZealand_2003.53972603=NewZealand,CY011064_NewZealand_2000.67671233=NewZealand,CY013072_NewZealand_2001.36986301=NewZealand,CY007667_NewZealand_2002.35616438=NewZealand,CY016467_NewZealand_2005.60821918=NewZealand,CY008388_NewZealand_2005.57260274=NewZealand,CY011960_NewZealand_2000.6630137=NewZealand,CY008420_NewZealand_2005.58630137=NewZealand,CY012640_NewZealand_2002.43287671=NewZealand,CY012000_NewZealand_2002.52054795=NewZealand,CY007267_NewZealand_2003.62739726=NewZealand,CY002938_NewZealand_2004.68767123=NewZealand">
+                                    <taxa id="TaxonSet.1" spec="TaxonSet" alignment="@h3n2_2deme"/>
+                                </typeTraitSet>
+                            </typeSet>
+                        </Re>
+                        <becomeUninfectiousRate id="becomeUninfectiousRateSPEpi.t:h3n2_2deme" spec="bdmmprime.parameterization.SkylineVectorParameter" processLength="@processLengthBDMMPrime.t:h3n2_2deme" skylineValues="@becomeUninfectiousRateEpi.t:h3n2_2deme" timesAreAges="true" typeSet="@typeSetBDMMPrime.t:h3n2_2deme"/>
+                        <samplingProportion id="samplingProportionSPEpi.t:h3n2_2deme" spec="bdmmprime.parameterization.SkylineVectorParameter" isScalar="false" processLength="@processLengthBDMMPrime.t:h3n2_2deme" skylineValues="@samplingProportionEpi.t:h3n2_2deme" timesAreAges="true" typeSet="@typeSetBDMMPrime.t:h3n2_2deme">
+                            <parameter id="samplingProportionChangeTimesEpi.t:h3n2_2deme" spec="parameter.RealParameter" estimate="false" lower="0.0" name="changeTimes">5.6</parameter>
+                        </samplingProportion>
+                        <rhoSampling id="rhoSamplingProbSPEpi.t:h3n2_2deme" spec="bdmmprime.parameterization.TimedParameter" processLength="@processLengthBDMMPrime.t:h3n2_2deme" timesAreAges="true" typeSet="@typeSetBDMMPrime.t:h3n2_2deme"/>
+                        <removalProb id="removalProbSPEpi.t:h3n2_2deme" spec="bdmmprime.parameterization.SkylineVectorParameter" processLength="@processLengthBDMMPrime.t:h3n2_2deme" timesAreAges="true" typeSet="@typeSetBDMMPrime.t:h3n2_2deme">
+                            <parameter id="removalProbEpi.t:h3n2_2deme" spec="parameter.RealParameter" estimate="false" lower="0.0" name="skylineValues" upper="1.0">1.0</parameter>
+                        </removalProb>
+                        <migrationRate id="migrationRateSPEpi.t:h3n2_2deme" spec="bdmmprime.parameterization.SkylineMatrixParameter" isScalar="false" processLength="@processLengthBDMMPrime.t:h3n2_2deme" skylineValues="@migrationRateEpi.t:h3n2_2deme" timesAreAges="true" typeSet="@typeSetBDMMPrime.t:h3n2_2deme"/>
+                        <ReAmongDemes id="ReAmongDemesSPEpi.t:h3n2_2deme" spec="bdmmprime.parameterization.SkylineMatrixParameter" processLength="@processLengthBDMMPrime.t:h3n2_2deme" timesAreAges="true" typeSet="@typeSetBDMMPrime.t:h3n2_2deme">
+                            <parameter id="ReAmongDemesEpi.t:h3n2_2deme" spec="parameter.RealParameter" estimate="false" lower="0.0" name="skylineValues">0.0</parameter>
+                        </ReAmongDemes>
+                        <typeSet idref="typeSetBDMMPrime.t:h3n2_2deme"/>
+                        <processLength idref="processLengthBDMMPrime.t:h3n2_2deme"/>
+                    </parameterization>
+                    <parameter id="startTypePriorProbs.t:h3n2_2deme" spec="parameter.RealParameter" dimension="2" estimate="false" lower="0.0" name="startTypePriorProbs" upper="1.0">0.5 0.5</parameter>
+                    <typeTraitSet idref="typeTraitSet.t:h3n2_2deme"/>
                 </distribution>
-                <prior id="RPrior.t:h3n2_2deme" name="distribution" x="@R0.t:h3n2_2deme">
+                <distribution id="ReEpiPrior.t:h3n2_2deme" spec="bdmmprime.util.priors.ZeroExcludingPrior" x="@ReEpi.t:h3n2_2deme">
                     <LogNormal id="LogNormalDistributionModel.1" name="distr">
-                        <parameter id="RealParameter.6" spec="parameter.RealParameter" estimate="false" name="M">0.0</parameter>
-                        <parameter id="RealParameter.7" spec="parameter.RealParameter" estimate="false" name="S">1.0</parameter>
+                        <parameter id="RealParameter.8" spec="parameter.RealParameter" estimate="false" name="M">0.0</parameter>
+                        <parameter id="RealParameter.9" spec="parameter.RealParameter" estimate="false" lower="0.0" name="S" upper="5.0">0.5</parameter>
                     </LogNormal>
-                </prior>
-                <prior id="becomeUninfectiousRatePrior.t:h3n2_2deme" name="distribution" x="@becomeUninfectiousRate.t:h3n2_2deme">
-                    <LogNormal id="LogNormalDistributionModel.0" meanInRealSpace="true" name="distr">
-                        <parameter id="RealParameter.4" spec="parameter.RealParameter" estimate="false" name="M">52.0</parameter>
-                        <parameter id="RealParameter.5" spec="parameter.RealParameter" estimate="false" name="S">1.0</parameter>
-                    </LogNormal>
-                </prior>
-                <prior id="ClockPrior.c:h3n2_2deme" name="distribution" x="@clockRate.c:h3n2_2deme">
+                </distribution>
+                <distribution id="becomeUninfectiousRateEpiPrior.t:h3n2_2deme" spec="bdmmprime.util.priors.ZeroExcludingPrior" x="@becomeUninfectiousRateEpi.t:h3n2_2deme">
                     <LogNormal id="LogNormalDistributionModel.2" meanInRealSpace="true" name="distr">
-                        <parameter id="RealParameter.11" spec="parameter.RealParameter" estimate="false" name="M">0.001</parameter>
-                        <parameter id="RealParameter.12" spec="parameter.RealParameter" estimate="false" lower="0.0" name="S" upper="5.0">1.25</parameter>
+                        <parameter id="RealParameter.10" spec="parameter.RealParameter" estimate="false" name="M">52.0</parameter>
+                        <parameter id="RealParameter.11" spec="parameter.RealParameter" estimate="false" lower="0.0" name="S" upper="5.0">0.5</parameter>
+                    </LogNormal>
+                </distribution>
+                <prior id="ClockPrior.c:h3n2_2deme" name="distribution" x="@clockRate.c:h3n2_2deme">
+                    <LogNormal id="LogNormalDistributionModel.3" meanInRealSpace="true" name="distr">
+                        <parameter id="RealParameter.12" spec="parameter.RealParameter" estimate="false" name="M">0.005</parameter>
+                        <parameter id="RealParameter.13" spec="parameter.RealParameter" estimate="false" lower="0.0" name="S" upper="5.0">0.5</parameter>
                     </LogNormal>
                 </prior>
                 <prior id="GammaShapePrior.s:h3n2_2deme" name="distribution" x="@gammaShape.s:h3n2_2deme">
                     <Exponential id="Exponential.0" name="distr">
-                        <mean id="Function$Constant.0" spec="Function$Constant" value="1.0"/>
+                        <parameter id="RealParameter.0" spec="parameter.RealParameter" estimate="false" name="mean">1.0</parameter>
                     </Exponential>
                 </prior>
-                <prior id="rateMatrixPrior.t:h3n2_2deme" name="distribution" x="@rateMatrix.t:h3n2_2deme">
+                <prior id="KappaPrior.s:h3n2_2deme" name="distribution" x="@kappa.s:h3n2_2deme">
+                    <LogNormal id="LogNormalDistributionModel.0" name="distr">
+                        <parameter id="RealParameter.1" spec="parameter.RealParameter" estimate="false" name="M">1.0</parameter>
+                        <parameter id="RealParameter.2" spec="parameter.RealParameter" estimate="false" name="S">1.25</parameter>
+                    </LogNormal>
+                </prior>
+                <distribution id="migrationRateEpiPrior.t:h3n2_2deme" spec="bdmmprime.util.priors.ZeroExcludingPrior" x="@migrationRateEpi.t:h3n2_2deme">
                     <Exponential id="Exponential.1" name="distr">
-                        <parameter id="RealParameter.10" spec="parameter.RealParameter" estimate="false" name="mean">1.0</parameter>
+                        <parameter id="RealParameter.14" spec="parameter.RealParameter" estimate="false" name="mean">0.1</parameter>
                     </Exponential>
+                </distribution>
+                <prior id="processLengthBDMMPrimePrior.t:h3n2_2deme" name="distribution" x="@processLengthBDMMPrime.t:h3n2_2deme">
+                    <OneOnX id="OneOnX.30" name="distr"/>
                 </prior>
-                <distribution id="samplingProportionPrior.t:h3n2_2deme" spec="multitypetree.distributions.ExcludablePrior" x="@samplingProportion.t:h3n2_2deme">
-                    <xInclude id="samplingProportionXInclude.t:h3n2_2deme" spec="parameter.BooleanParameter" dimension="4">false true false true</xInclude>
-                    <LogNormal id="LogNormalDistributionModel.3" meanInRealSpace="true" name="distr">
-                        <parameter id="RealParameter.13" spec="parameter.RealParameter" estimate="false" name="M">0.001</parameter>
-                        <parameter id="RealParameter.14" spec="parameter.RealParameter" estimate="false" lower="0.0" name="S" upper="5.0">1.25</parameter>
+                <distribution id="samplingProportionEpiPrior.t:h3n2_2deme" spec="bdmmprime.util.priors.ZeroExcludingPrior" x="@samplingProportionEpi.t:h3n2_2deme">
+                    <LogNormal id="LogNormalDistributionModel.5" meanInRealSpace="true" name="distr">
+                        <parameter id="RealParameter.17" spec="parameter.RealParameter" estimate="false" name="M">0.001</parameter>
+                        <parameter id="RealParameter.18" spec="parameter.RealParameter" estimate="false" lower="0.0" name="S" upper="5.0">1.25</parameter>
                     </LogNormal>
                 </distribution>
             </distribution>
-            <distribution id="likelihood" spec="CompoundDistribution">
-                <distribution id="treeLikelihood.h3n2_2deme" spec="TreeLikelihood" data="@h3n2_2deme" tree="@Tree.t:h3n2_2deme">
+            <distribution id="likelihood" spec="CompoundDistribution" useThreads="true">
+                <distribution id="treeLikelihood.h3n2_2deme" spec="ThreadedTreeLikelihood" data="@h3n2_2deme" tree="@Tree.t:h3n2_2deme">
                     <siteModel id="SiteModel.s:h3n2_2deme" spec="SiteModel" gammaCategoryCount="4" shape="@gammaShape.s:h3n2_2deme">
-                        <parameter id="mutationRate.s:h3n2_2deme" spec="parameter.RealParameter" estimate="false" name="mutationRate">1.0</parameter>
-                        <parameter id="proportionInvariant.s:h3n2_2deme" spec="parameter.RealParameter" estimate="false" lower="0.0" name="proportionInvariant" upper="1.0">0.867</parameter>
-                        <substModel id="JC69.s:h3n2_2deme" spec="JukesCantor"/>
+                        <parameter id="mutationRate.s:h3n2_2deme" spec="parameter.RealParameter" estimate="false" lower="0.0" name="mutationRate">1.0</parameter>
+                        <parameter id="proportionInvariant.s:h3n2_2deme" spec="parameter.RealParameter" estimate="false" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter>
+                        <substModel id="hky.s:h3n2_2deme" spec="HKY" kappa="@kappa.s:h3n2_2deme">
+                            <frequencies id="empiricalFreqs.s:h3n2_2deme" spec="Frequencies" data="@h3n2_2deme"/>
+                        </substModel>
                     </siteModel>
                     <branchRateModel id="StrictClock.c:h3n2_2deme" spec="beast.base.evolution.branchratemodel.StrictClockModel" clock.rate="@clockRate.c:h3n2_2deme"/>
                 </distribution>
             </distribution>
         </distribution>
-        <operator id="STX.t:h3n2_2deme" spec="multitypetree.operators.TypedSubtreeExchange" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme" weight="10.0"/>
-        <operator id="TWB.t:h3n2_2deme" spec="multitypetree.operators.TypedWilsonBalding" alpha="0.2" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme" weight="10.0"/>
-        <operator id="NR.t:h3n2_2deme" spec="multitypetree.operators.NodeRetype" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme" weight="10.0"/>
-        <operator id="NSR1.t:h3n2_2deme" spec="multitypetree.operators.NodeShiftRetype" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme" rootOnly="true" weight="10.0"/>
-        <operator id="NSR2.t:h3n2_2deme" spec="multitypetree.operators.NodeShiftRetype" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme" noRoot="true" weight="10.0"/>
-        <operator id="MTU.t:h3n2_2deme" spec="multitypetree.operators.MultiTypeUniform" includeRoot="true" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme" weight="10.0"/>
-        <operator id="MTTS.t:h3n2_2deme" spec="multitypetree.operators.MultiTypeTreeScale" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme" scaleFactor="0.98" useOldTreeScaler="true" weight="10.0"/>
-        <operator id="MTTUpDown.t:h3n2_2deme" spec="multitypetree.operators.MultiTypeTreeScale" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme" scaleFactor="0.98" useOldTreeScaler="true" weight="10.0">
-            <parameterInverse idref="rateMatrix.t:h3n2_2deme"/>
-            <parameterInverse idref="clockRate.c:h3n2_2deme"/>
+        <operator id="StrictClockRateScaler.c:h3n2_2deme" spec="AdaptableOperatorSampler" weight="1.5">
+            <parameter idref="clockRate.c:h3n2_2deme"/>
+            <operator id="AVMNOperator.h3n2_2deme" spec="kernel.AdaptableVarianceMultivariateNormalOperator" allowNonsense="true" beta="0.05" burnin="400" initial="800" weight="0.1">
+                <transformations id="AVMNSumTransform.h3n2_2deme" spec="operator.kernel.Transform$LogConstrainedSumTransform"/>
+                <transformations id="AVMNLogTransform.h3n2_2deme" spec="operator.kernel.Transform$LogTransform">
+                    <f idref="clockRate.c:h3n2_2deme"/>
+                    <f idref="kappa.s:h3n2_2deme"/>
+                    <f idref="gammaShape.s:h3n2_2deme"/>
+                </transformations>
+                <transformations id="AVMNNoTransform.h3n2_2deme" spec="operator.kernel.Transform$NoTransform">
+                    <f idref="Tree.t:h3n2_2deme"/>
+                </transformations>
+            </operator>
+            <operator id="StrictClockRateScalerX.c:h3n2_2deme" spec="kernel.BactrianScaleOperator" parameter="@clockRate.c:h3n2_2deme" upper="10.0" weight="3.0"/>
         </operator>
-        <operator id="R0Scaler.t:h3n2_2deme" spec="ScaleOperator" parameter="@R0.t:h3n2_2deme" scaleFactor="0.8" weight="3.0"/>
-        <operator id="becomeUninfectiousRateScaler.t:h3n2_2deme" spec="ScaleOperator" optimise="false" parameter="@becomeUninfectiousRate.t:h3n2_2deme" scaleAll="true" scaleFactor="0.9" weight="1.0"/>
-        <operator id="samplingScaler.t:h3n2_2deme" spec="ScaleOperator" parameter="@samplingProportion.t:h3n2_2deme" scaleFactor="0.9" weight="3.0"/>
-        <operator id="rateMatrixScaler.t:h3n2_2deme" spec="ScaleOperator" parameter="@rateMatrix.t:h3n2_2deme" scaleFactor="0.8" weight="1.0"/>
-        <operator id="geo-frequenciesExchange.t:h3n2_2deme" spec="operator.DeltaExchangeOperator" delta="0.1" weight="0.1">
-            <parameter idref="geo-frequencies.t:h3n2_2deme"/>
+        <operator id="strictClockUpDownOperator.c:h3n2_2deme" spec="AdaptableOperatorSampler" weight="1.5">
+            <parameter idref="clockRate.c:h3n2_2deme"/>
+            <tree idref="Tree.t:h3n2_2deme"/>
+            <operator idref="AVMNOperator.h3n2_2deme"/>
+            <operator id="strictClockUpDownOperatorX.c:h3n2_2deme" spec="operator.kernel.BactrianUpDownOperator" scaleFactor="0.75" weight="3.0">
+                <up idref="clockRate.c:h3n2_2deme"/>
+                <down idref="Tree.t:h3n2_2deme"/>
+            </operator>
         </operator>
-        <operator id="updownBD.t:h3n2_2deme" spec="operator.UpDownOperator" scaleFactor="0.9" weight="3.0">
-            <up idref="R0.t:h3n2_2deme"/>
-            <down idref="becomeUninfectiousRate.t:h3n2_2deme"/>
+        <operator id="KappaScaler.s:h3n2_2deme" spec="AdaptableOperatorSampler" weight="0.05">
+            <parameter idref="kappa.s:h3n2_2deme"/>
+            <operator idref="AVMNOperator.h3n2_2deme"/>
+            <operator id="KappaScalerX.s:h3n2_2deme" spec="kernel.BactrianScaleOperator" parameter="@kappa.s:h3n2_2deme" scaleFactor="0.1" upper="10.0" weight="0.1"/>
         </operator>
-        <operator id="updownBM.t:h3n2_2deme" spec="operator.UpDownOperator" scaleFactor="0.9" weight="3.0">
-            <up idref="R0.t:h3n2_2deme"/>
-            <down idref="rateMatrix.t:h3n2_2deme"/>
+        <operator id="gammaShapeScaler.s:h3n2_2deme" spec="AdaptableOperatorSampler" weight="0.05">
+            <parameter idref="gammaShape.s:h3n2_2deme"/>
+            <operator idref="AVMNOperator.h3n2_2deme"/>
+            <operator id="gammaShapeScalerX.s:h3n2_2deme" spec="kernel.BactrianScaleOperator" parameter="@gammaShape.s:h3n2_2deme" scaleFactor="0.5" upper="10.0" weight="0.1"/>
         </operator>
-        <operator id="updownDS.t:h3n2_2deme" spec="operator.UpDownOperator" scaleFactor="0.9" weight="3.0">
-            <up idref="samplingProportion.t:h3n2_2deme"/>
-            <down idref="becomeUninfectiousRate.t:h3n2_2deme"/>
+        <operator id="BDMMPrimeLeafToSA.t:h3n2_2deme" spec="sa.evolution.operators.LeafToSampledAncestorJump" tree="@Tree.t:h3n2_2deme" weight="10.0"/>
+        <operator id="BDMMPrimeSAWilsonBalding.t:h3n2_2deme" spec="sa.evolution.operators.SAWilsonBalding" tree="@Tree.t:h3n2_2deme" weight="10.0"/>
+        <operator id="BDMMPrimeSAWide.t:h3n2_2deme" spec="sa.evolution.operators.SAExchange" isNarrow="false" tree="@Tree.t:h3n2_2deme" weight="10.0"/>
+        <operator id="BDMMPrimeSANarrow.t:h3n2_2deme" spec="sa.evolution.operators.SAExchange" tree="@Tree.t:h3n2_2deme" weight="10.0"/>
+        <operator id="BDMMPrimeSAUniformOperator.t:h3n2_2deme" spec="sa.evolution.operators.SAUniform" tree="@Tree.t:h3n2_2deme" weight="20.0"/>
+        <operator id="BDMMPrimeSATreeRootScaler.t:h3n2_2deme" spec="sa.evolution.operators.SAScaleOperator" rootOnly="true" scaleFactor="0.95" tree="@Tree.t:h3n2_2deme" weight="1.0"/>
+        <operator id="BDMMPrimeSATreeScaler.t:h3n2_2deme" spec="sa.evolution.operators.SAScaleOperator" scaleFactor="0.95" tree="@Tree.t:h3n2_2deme" weight="3.0"/>
+        <operator id="originBDMMPrimeScaler.t:h3n2_2deme" spec="ScaleOperator" parameter="@originBDMMPrime.t:h3n2_2deme" weight="3.0"/>
+        <operator id="JointBDMMPrimeSkylineScaleOperator.t:h3n2_2deme" spec="bdmmprime.util.operators.JointSkylineScaleOperator" weight="3.0">
+            <skylineParameter idref="becomeUninfectiousRateSPEpi.t:h3n2_2deme"/>
+            <skylineParameter idref="migrationRateSPEpi.t:h3n2_2deme"/>
         </operator>
-        <operator id="StrictClockRateScaler.c:h3n2_2deme" spec="ScaleOperator" parameter="@clockRate.c:h3n2_2deme" weight="3.0"/>
-        <operator id="gammaShapeScaler.s:h3n2_2deme" spec="ScaleOperator" parameter="@gammaShape.s:h3n2_2deme" scaleFactor="0.5" weight="0.1"/>
-        <logger id="tracelog" spec="Logger" fileName="$(filebase).log" logEvery="1000">
+        <operator id="ReEpiScaler.t:h3n2_2deme" spec="ScaleOperator" parameter="@ReEpi.t:h3n2_2deme" weight="3.0"/>
+        <operator id="becomeUninfectiousRateEpiScaler.t:h3n2_2deme" spec="ScaleOperator" parameter="@becomeUninfectiousRateEpi.t:h3n2_2deme" weight="3.0"/>
+        <operator id="samplingProportionEpiScaler.t:h3n2_2deme" spec="ScaleOperator" parameter="@samplingProportionEpi.t:h3n2_2deme" weight="3.0"/>
+        <operator id="migrationRateEpiScaler.t:h3n2_2deme" spec="ScaleOperator" parameter="@migrationRateEpi.t:h3n2_2deme" weight="3.0"/>
+        <logger id="tracelog" spec="Logger" fileName="$(filebase).log" logEvery="1000" model="@posterior" sanitiseHeaders="true" sort="smart">
             <log idref="posterior"/>
             <log idref="likelihood"/>
             <log idref="prior"/>
             <log idref="treeLikelihood.h3n2_2deme"/>
-            <log id="treeHeight.t:h3n2_2deme" spec="beast.base.evolution.tree.TreeHeightLogger" tree="@Tree.t:h3n2_2deme"/>
-            <log id="treeLength.t:h3n2_2deme" spec="multitypetree.util.TreeLengthLogger" tree="@Tree.t:h3n2_2deme"/>
-            <log id="changeCounts.t:h3n2_2deme" spec="multitypetree.util.TypeChangeCounts" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme"/>
-            <log id="nodeTypeCounts.t:h3n2_2deme" spec="multitypetree.util.NodeTypeCounts" migrationModel="@migModel.t:h3n2_2deme" multiTypeTree="@Tree.t:h3n2_2deme"/>
-            <log id="rootTypeLogger.t:h3n2_2deme" spec="multitypetree.util.TreeRootTypeLogger" multiTypeTree="@Tree.t:h3n2_2deme"/>
-            <log idref="R0.t:h3n2_2deme"/>
-            <log idref="samplingProportion.t:h3n2_2deme"/>
-            <log idref="becomeUninfectiousRate.t:h3n2_2deme"/>
-            <log idref="rateMatrix.t:h3n2_2deme"/>
-            <log idref="geo-frequencies.t:h3n2_2deme"/>
+            <log id="TreeHeight.t:h3n2_2deme" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:h3n2_2deme"/>
             <log idref="clockRate.c:h3n2_2deme"/>
+            <log idref="kappa.s:h3n2_2deme"/>
             <log idref="gammaShape.s:h3n2_2deme"/>
+            <log idref="originBDMMPrime.t:h3n2_2deme"/>
+            <log id="startTypePosteriorProbsLogger.t:h3n2_2deme" spec="bdmmprime.util.StartTypePosteriorProbsLogger" bdmmTreePrior="@BDMMPrime.t:h3n2_2deme"/>
+            <log id="typedTreeStats.t:h3n2_2deme" spec="bdmmprime.mapping.TypedTreeStatsLogger" includeRootEdge="true" typeLabel="type" typeSet="@typeSetBDMMPrime.t:h3n2_2deme">
+                <typedTree id="typeMappedTree.t:h3n2_2deme" spec="bdmmprime.mapping.TypeMappedTree" bdmmDistrib="@BDMMPrime.t:h3n2_2deme" mapOnInit="false" remapOnLog="true" startTypePriorProbs="@startTypePriorProbs.t:h3n2_2deme" typeLabel="type" typeTraitSet="@typeTraitSet.t:h3n2_2deme" untypedTree="@Tree.t:h3n2_2deme"/>
+            </log>
+            <log idref="ReSPEpi.t:h3n2_2deme"/>
+            <log idref="becomeUninfectiousRateSPEpi.t:h3n2_2deme"/>
+            <log idref="samplingProportionSPEpi.t:h3n2_2deme"/>
+            <log idref="migrationRateSPEpi.t:h3n2_2deme"/>
         </logger>
         <logger id="screenlog" spec="Logger" logEvery="1000">
             <log idref="posterior"/>
-            <log id="ESS.0" spec="util.ESS" arg="@posterior"/>
             <log idref="likelihood"/>
             <log idref="prior"/>
         </logger>
-        <logger id="treelog.t:h3n2_2deme" spec="Logger" fileName="$(filebase).$(tree).trees" logEvery="10000" mode="tree">
-            <log idref="Tree.t:h3n2_2deme"/>
+        <logger id="treelog.t:h3n2_2deme" spec="Logger" fileName="$(filebase)-$(tree).trees" logEvery="1000" mode="tree">
+            <log id="TreeWithMetaDataLogger.t:h3n2_2deme" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:h3n2_2deme"/>
         </logger>
-        <logger id="maptreelog.t:h3n2_2deme" spec="Logger" fileName="$(filebase).h3n2_2deme.map.trees" logEvery="10000" mode="tree">
-            <log id="MAPTreeLogger.0" spec="multitypetree.util.MAPTreeLogger" multiTypeTree="@Tree.t:h3n2_2deme" posterior="@posterior"/>
+        <logger id="typedTreeLogger.t:h3n2_2deme" spec="bdmmprime.util.OptionalLogger" enableLogger="true" fileName="$(filebase).$(tree).typed.trees" logEvery="1000" mode="tree">
+            <log idref="typeMappedTree.t:h3n2_2deme"/>
         </logger>
-        <logger id="typednodetreelog.t:h3n2_2deme" spec="Logger" fileName="$(filebase).h3n2_2deme.typedNode.trees" logEvery="10000" mode="tree">
-            <log id="TypedNodeTreeLogger.0" spec="multitypetree.util.TypedNodeTreeLogger" multiTypeTree="@Tree.t:h3n2_2deme"/>
+        <logger id="nodeTypedTreeLogger.t:h3n2_2deme" spec="bdmmprime.util.OptionalLogger" enableLogger="true" fileName="$(filebase).$(tree).typed.node.trees" logEvery="1000" mode="tree">
+            <log id="nodeTypedTree.t:h3n2_2deme" spec="bdmmprime.mapping.TypedNodeTreeLogger" typedTree="@typeMappedTree.t:h3n2_2deme"/>
         </logger>
+        <logger id="trajLogger.t:h3n2_2deme" spec="bdmmprime.util.OptionalLogger" fileName="$(filebase).$(tree).traj" logEvery="1000">
+            <log id="typedTraj.t:h3n2_2deme" spec="bdmmprime.trajectories.SampledTrajectory" bdmmDistrib="@BDMMPrime.t:h3n2_2deme" startTypePriorProbs="@startTypePriorProbs.t:h3n2_2deme" typeMappedTree="@typeMappedTree.t:h3n2_2deme" useTauLeaping="true"/>
+        </logger>
+        <operatorschedule id="OperatorSchedule" spec="OperatorSchedule"/>
     </run>
 
 </beast>
