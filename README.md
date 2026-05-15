@@ -3,8 +3,8 @@ author: Denise Kühnert, Jūlija Pečerska
 level: Professional
 title: Structured birth-death model
 subtitle: Population structure using the multi-type birth-death model
-beastversion: 2.7.4
-tracerversion: 1.7.2
+beastversion: 2.7.7
+tracerversion: 1.7.3
 ---
 
 
@@ -14,9 +14,6 @@ In this tutorial we will use the [BEAST2](http://www.beast2.org/)
 [bdmm](https://github.com/denisekuehnert/bdmm) package to perform a Bayesian
 phylogenetic analysis of an influenza data set using the multi-type birth-death
 model {% cite Kuhnert2016 --file Structured-birth-death-model/refs.bib %}.
-
-<!--(Note that both the structured coalescent and the multi-type birth-death model are tree priors implemented in BEAST2. Both of them utilize the multi-type tree structure of the MultiTypeTree package. While the structured coalescent is part of the MultiTypeTree package, the multi-type birth-death model has its own package bdmm (aka birth-death migration model).)-->
-
 
 The data set used in this tutorial is a thinned 60 sequence subset of the
 980 sequence H3N2 influenza data set used in the publication {% cite Vaughan2014 --file Structured-birth-death-model/refs.bib %}, which in turn was
@@ -46,61 +43,43 @@ TreeAnnotator is provided as a part of the BEAST2 package so you do not need to 
 
 ### Tracer
 
-Tracer ([https://github.com/beast-dev/tracer/releases/tag/v1.7.2](https://github.com/beast-dev/tracer/releases/tag/v1.7.2)) is used to summarize the posterior estimates of the various parameters sampled by the Markov Chain. This program can be used for visual inspection and to assess convergence. It helps to quickly view median estimates and 95% highest posterior density intervals of the parameters, and calculates the effective sample sizes (ESS) of parameters. It can also be used to investigate potential parameter correlations. We will be using Tracer v{{ page.tracerversion }}.
+Tracer ([https://github.com/beast-dev/tracer/releases/](https://github.com/beast-dev/tracer/releases/)) is used to summarize the posterior estimates of the various parameters sampled by the Markov Chain. This program can be used for visual inspection and to assess convergence. It helps to quickly view median estimates and 95% highest posterior density intervals of the parameters, and calculates the effective sample sizes (ESS) of parameters. It can also be used to investigate potential parameter correlations. We will be using Tracer v{{ page.tracerversion }}.
 
 ### IcyTree
 
 IcyTree ([https://icytree.org](https://icytree.org)) is a browser-based phylogenetic tree viewer. It is intended for rapid visualisation of phylogenetic tree files. It can also render phylogenetic networks provided in extended Newick format. IcyTree is compatible with current versions of Mozilla Firefox and Google Chrome.
 
-<!-- and an up-to-date version of
-[Google Chrome](http://www.google.com/chrome) or
-[Mozilla Firefox](https://www.mozilla.org/en-US/firefox/).-->
 
+## Installing the `BDMM-Prime` package
 
-## Installing the `bdmm` package
-
-You can easily install the `bdmm` package via BEAUti's package manager.  To do this, follow these steps:
+You can easily install the `BDMM-Prime` package via BEAUti's package manager.  To do this, follow these steps:
 
 > Start BEAUti;
 >
 > In the application menu, **File** > **Manage Packages**.
 >
-> Find **bdmm** in the list of packages shown, select it and then click **Install/Upgrade**.
+> Find **BDMM-Prime** in the list of packages shown, select it and then click **Install/Upgrade**.
 
-The BEAUTi window should look similar to what is shown in [Figure 1](#fig:install-bdmm).
+The BEAUTi window should look similar to what is shown in [Figure 1](#fig:install-bdmm-prime).
 Note the actual version of `bdmm` may differ from the version shown in the figure, which is perfectly normal.
 Also note that `bdmm` depends on the `MultiTypeTree` package. And on `MASTER` from version v0.3.0 upward. BEAUTi will install the dependencies automatically once you select to install `bdmm`.
 
 <figure>
-	<a id="fig:install-bdmm"></a>
-	<img style="width:75%;" src="figures/1-install-bdmm.png" alt="">
+	<a id="fig:install-bdmm-prime"></a>
+	<img style="width:75%;" src="figures/1-install-bdmm-prime.png" alt="">
 	<figcaption>Figure 1: Install bdmm.</figcaption>
 </figure>
 <br>
 
 Finally, **restart BEAUti.**  The restart is necessary for the packages to be successfully installed.
 
-If you get an error message stating that you are missing a package on which `bdmm` depends, install that package manually using the package manager as done above, and **restart BEAUti** again.
+If you get an error message stating that you are missing a package on which `bdmm-prime` depends, install that package manually using the package manager as done above, and **restart BEAUti** again.
 
 # Setting up the analysis using BEAUti
 
-## Loading the template
-
-A BEAUTi template defines the basic structure and contents of your XML configuration file.
-By default BEAUTi will construct an XML file with standard uncoloured BEAST trees, however `bdmm` uses coloured trees which are defined in the `MultiTypeTree` package.
-To use the appropriate template for the configuration file, select `File > Template > MultiTypeBirthDeath`, as shown in [Figure 2](#fig:choose-bdmm).
-
-<figure>
-	<a id="fig:choose-bdmm"></a>
-	<img style="width:100%;" src="figures/2-choose-bdmm-template.png" alt="">
-	<figcaption>Figure 2: Load the MultiTypeBirthDeath template.</figcaption>
-</figure>
-<br>
-
-
 ## Loading the data
 
-Once the template is loaded, we can load in our example sequence data.  In our case, these data are stored in a FASTA file, the first few lines of which look like this (the sequences have been truncated for better readability):
+We will first load in our example sequence data.  In our case, these data are stored in a FASTA file, the first few lines of which look like this (the sequences have been truncated for better readability):
 
 ```
 > EU856841_HongKong_2005.34246575
@@ -122,15 +101,15 @@ is the GenBank accession number of the sequence, the second is the geographical
 region from which it was sampled, and the third is the time at which it was
 sampled measured in calendar years or fractions thereof.
 
-In this tutorial we will be using the influenza sequence data which can be found in the `examples` folder of the `MultiTypeTree` package.
-To make it easier to find when loading the alignment, you can optionally set the working directory of BEAST2 to `MultiTypeTree`.
+In this tutorial we will be using the influenza sequence data which can be found in the `examples` folder of the `bdmm-prime` package.
+To make it easier to find when loading the alignment, you can optionally set the working directory of BEAST2 to `bdmm-prime`.
 This will make BEAUTi open the appropriate package folder when you look for the alignment.
-To set the working directory, select `File > Set working dir > MultiTypeTree`, as shown in [Figure 3](#fig:working-dir).
+To set the working directory, select `File > Set working dir > BDMM-Prime`, as shown in [Figure 3](#fig:working-dir).
 
 <figure>
 	<a id="fig:working-dir"></a>
 	<img style="width:100%;" src="figures/3-set-working-dir.png" alt="">
-	<figcaption>Figure 3: Optional step: set the working directory to MultiTypeTree.</figcaption>
+	<figcaption>Figure 3: Optional step: set the working directory to BDMM-Prime.</figcaption>
 </figure>
 <br>
 
@@ -139,7 +118,7 @@ To load the file, select `File > Add Alignment`.
 This will open a file selection dialog box.  The example influenza sequence data
 file is named `h3n2_2deme.fna`.
 Assuming you have followed the previous step to set the working directory, this can be found in the `examples/` directory shown when the file selection dialog box appears.
-In case you have not followed the previous step you will have to locate the folder containing the `MultiTypeTree` package and look for the `examples/` folder there.
+In case you have not followed the previous step you will have to locate the folder containing the `BDMM-Prime` package and look for the `examples/` folder there.
 
 Once the sequence file is loaded, your BEAUti screen should look similar to what is shown in [Figure 4](#fig:alignment).
 
@@ -218,7 +197,8 @@ The BEAUTi panel should look as shown in [Figure 8](#fig:tip-types-set).
 
 ## Setting the substitution model
 
-For this analysis, we will use the JC69 substitution model with 4 gamma categories.
+For this analysis, we will use the HKY substitution model with 4 gamma categories.
+
 To configure this in BEAUti, switch to the `Site Model` panel.
 First, we need to set up the rate category count.
 To approximate the continuous gamma rate distribution BEAST2 uses the discrete gamma distribution, where sites are divided into k equally probable rate categories.
