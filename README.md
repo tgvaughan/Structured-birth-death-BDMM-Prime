@@ -1,7 +1,7 @@
 ---
-author: Denise Kühnert, Jūlija Pečerska
+author: Denise Kühnert, Jūlija Pečerska, Tim Vaughan
 level: Professional
-title: Structured birth-death model
+title: Structured birth-death model with BDMM-Prime
 subtitle: Population structure using the multi-type birth-death model
 beastversion: 2.7.7
 tracerversion: 1.7.3
@@ -11,12 +11,22 @@ tracerversion: 1.7.3
 # Introduction
 
 In this tutorial we will use the [BEAST2](http://www.beast2.org/)
-[bdmm](https://github.com/denisekuehnert/bdmm) package to perform a Bayesian
+[BDMM-Prime](https://tgvaughan.github.io/BDMM-Prime) package to perform a Bayesian
 phylogenetic analysis of an influenza data set using the multi-type birth-death
-model {% cite Kuhnert2016 --file Structured-birth-death-model/refs.bib %}.
+model {% cite Kuhnert2016 --file Structured-birth-death-BDMM-Prime/refs.bib %}.
+
+The multi-type birth-death model can be used to explain sequence data which have
+evolved within a population that is clearly divided into separate compartments, demes, or types.
+(We will use the terms deme, partition and type interchangeably here.)
+
+The types can be geographical locations, as in our example, but the sequences can also be separated through other means than that, e.g. by a specific drug resistance mutation (strains can develop/lose drug resistance and thus move between types, but can not transfer between types otherwise), or location in the body (for example, for localised infections caused by the same agent).
+
+In this tutorial you will learn how to apply this model to H3N2
+sequences sampled from human hosts in two different geographical
+locations.  These two locations will be our two types in the analysis.
 
 The data set used in this tutorial is a thinned 60 sequence subset of the
-980 sequence H3N2 influenza data set used in the publication {% cite Vaughan2014 --file Structured-birth-death-model/refs.bib %}, which in turn was
+980 sequence H3N2 influenza data set used in the publication {% cite Vaughan2014 --file Structured-birth-death-BDMM-Prime/refs.bib %}, which in turn was
 assembled from publicly-available data sets provided by various authors on
 [GenBank](http://www.ncbi.nlm.nih.gov/genbank/).
 
@@ -163,51 +173,33 @@ The BEAUTi panel should look as shown in [Figure 6](#fig:tip-dates).
 </figure>
 <br>
 
-## Setting up locations
-
-Now that we've specified the sampling times, we move on to specifying the sampling locations.
-To do this, we follow a very similar set of steps to those we used to set the sample times:
-
-> Select the **Tip Locations** panel. You'll find that the locations are already filled with a single default value – **NOT_SET**.
-> 
-> Click the **Guess** button at the top-left of the panel. This opens the same dialog that we saw in the previous section when setting up the dates.
->
-> The locations are included as the second element of the underscore-delimited sequence names.
-Therefore we choose the **split on character** radio button and select group **2** from the drop-down menu.
-Note again that the underscore character is already chosen as the delimiter.
-
-The location parsing setup will look as shown in [Figure 7](#fig:tip-types).
-
-<figure>
-	<a id="fig:tip-types"></a>
-	<img style="width:75%;" src="figures/7-tip-types.png" alt="">
-	<figcaption>Figure 7: Guessing the locations.</figcaption>
-</figure>
-<br>
-
-After clicking `OK` you should find that the tip location table is filled with locations that match those in the sequence titles.
-The BEAUTi panel should look as shown in [Figure 8](#fig:tip-types-set).
-
-<figure>
-	<a id="fig:tip-types-set"></a>
-	<img style="width:100%;" src="figures/8-tip-types-set.png" alt="">
-	<figcaption>Figure 8: The locations in BEAUti.</figcaption>
-</figure>
-<br>
 
 ## Setting the substitution model
 
-For this analysis, we will use the HKY substitution model with 4 gamma categories.
-
-To configure this in BEAUti, switch to the `Site Model` panel.
-First, we need to set up the rate category count.
+For this analysis, we will use the HKY substitution model, with Gamma-distributed site to site rate heterogeneity to account for variations in substitution rate across the genome.
 To approximate the continuous gamma rate distribution BEAST2 uses the discrete gamma distribution, where sites are divided into k equally probable rate categories.
 In general, 4-6 categories work well for most datasets, while having more categories involve a lot of computation at little precision gain, so we set the `Gamma Category Count` to 4.
 We would also like to estimate the `Shape` parameter, which describes the shape of the continuous gamma distribution we approximate.
-To do so, we need to set it to a non-zero value (e.g. the default 1.0) and tick the `estimate` checkbox.
-While the gamma categories account for rate variation, allowing some sites to have an evolutionary rate of 0 can improve fit to real data.
-To speed up the analysis we will fix this to the actual proportion of invariant sites we have in our alignment, which is 0.867.
-We leave the substitution model to the default option `JC69`.
+
+The HKY substitution model is parameterized by a set of equlibrium base frequences and
+the transition/transversion rate ratio, $\kappa$.  It is usually safe to estimate $\kappa$
+as the sequence data usually contain relatively strong signal for the value.  It is also
+common to estimate the equilibrium frequencies, although here we will fix them to their
+empirical values (averages computed directly from the sequence alignment) to speed things
+up slightly for this tutorial analysis.
+
+>
+> Switch to the **Site Model** panel.
+>
+> Set up the **Gamma Category Count** to 4.
+>
+> Leave the **Shape** parameter initialised to 1.0, with its **estimate** box checked.
+>
+> Select **HKY** from the Subst Model drop-down menu.
+>
+> Set **Frequencies** to **Empirical**.
+>
+
 The BEAUti panel should now look as shown in [Figure 9](#fig:site-model).
 
 <figure>
@@ -223,11 +215,26 @@ This way, the `Substitution rate` is not actually a rate, but rather a rate mult
 
 ## Setting the clock model
 
-To speed up the analysis we will assume a strict clock for this small dataset.
-However, the selection of a clock model for a different, real analysis should not be taken lightly.
-Since our alignment contains sequences sampled at different times and those times are measured in years, we must use a clock rate expressed in units of expected substitutions per site per year.
-Usually the precise value is unknown and so the default behaviour of BEAUti is to assume this rate has to be estimated.
-To speed up mixing we set the starting value of the `Clock rate` to 0.005, which we know from research to be much closer to the truth than the default value of 1.
+To speed up the analysis we will assume a strict clock for this small
+dataset.  However, the selection of a clock model for a different,
+real analysis should not be taken lightly.  Since our alignment
+contains sequences sampled at different times and those times are
+measured in years, we must use a clock rate expressed in units of
+expected substitutions per site per year.  Usually the precise value
+is unknown and so the default behaviour of BEAUti is to assume this
+rate has to be estimated.
+
+We won't change this default setup here, but to speed up mixing we will
+choose starting value for the clock rate inference which we know from
+other research to be much closer to the true substitution rate than
+the default value.
+
+> 
+> Switch to the **Clock Model** panel.
+>
+> Set the starting value of the `Clock rate` to 0.005. (Implicit units are substitutions per
+> site per year.)
+> 
 The `Clock Model` panel should now look as shown in [Figure 10](#fig:strict-clock).
 
 <figure>
@@ -239,171 +246,384 @@ The `Clock Model` panel should now look as shown in [Figure 10](#fig:strict-cloc
 
 ## Adjusting priors
 
-### Setting up the `bdmm` tree prior
+### Selecting the tree prior.
 
-`bdmm` defines a prior on the multi-type tree distribution.
-Thus it is particularly important for the analysis that we properly set up the priors.
-First, let's talk about the values that need to be set on the `Priors` panel.
-The first panel that you see at the top is the tree prior.
+The primary functionality that `BDMM-Prime` provides is a prior probability distribution
+over phylogenetic trees under a multi-type birth-death-sampling model.  Here we configure
+the particular birth-death model we will use to relate the tree to the various population-level
+parameters we'd like to learn about.
 
-`bdmm` is a model that can be used to explain data that is clearly divided into separate partitions, or demes.
-(We will use the terms deme, partition and type interchangeably here.)
-The demes can be geographical locations, as in our example, but the sequences can also be separated through other means than that, e.g. by a specific drug resistance mutation (strains can develop/lose drug resistance and thus move between demes, but can not transfer between demes otherwise), or location in the body (for example, for localised infections caused by the same agent).
-In this dataset we have strains from 2 different locations, New Zealand and Hong Kong, so the `Number of demes` should be set to 2, which also is the default value.
-Next, `bdmm` lets you estimate the `Reproduction number per type` and the `BecomeUninfectiousRate per type`.
-This will let us see the differences in reproduction fitness and speed of recovery between the two locations, so we leave the `estimate` checkboxes checked.
-We can leave the starting values at default as it will not influence the inference a lot.
+>
+> Select the **Priors** panel.
+>
+> To choose the BDMM-Prime tree prior, find the drop-down menu next to Tree.t:h3n2_2deme
+> and select **BDMMPrime**.
+>
 
-The next important thing one should take care of is setting the sampling proportions appropriately.
-In general, the trees that we build go back in time much further than the first sample that we have.
-If we set the same sampling proportion for the whole time period from our estimated tree origin to the time of the last sample, we will most likely run into trouble, as `bdmm` will try to produce a tree that has the same sampling proportion for the whole time, but no samples in the past and a lot of samples towards the present.
-In order to remove that bias from the trees, we need to make sure that we only have non-zero sampling starting from the first sample date (unless we know that there really weren't
-any related cases before the first sampled case).
-To do so, let's look at the `SamplingProportion per type` field.
-You will see that it has 4 values, which correspond to two values per type, lets call them [v1,v2,v3,v4].
-v1 and v2 are the values for the first and second time interval for the first deme, and v3 and v4 are the values for the second deme.
-Thus, to do what we want we need to set the values v1 and v3 to zero.
-Because BEAST2 will use scalers to sample new values for the sampling proportions, the values which we set to 0 will remain so.
-Next, we also need to set the `Sampling change time` to the time slightly before the first sample.
-If we look back at the `Tip dates` panel, we can see that our oldest sample is the one labelled as `EU856904_HongKong_2000.09863014`, for which the height, or the length of time from the first sample and the last, is 5.569863.
-We set the sampling change time in time units from the most recent sample and we need to make sure we include the first sample, thus we set the `Sampling change time` to 5.57, which is the height of the first sample rounded slightly up (and confirm the change with ENTER).
-The final setup of the tree prior can be seen in [Figure 11](#fig:tree-prior).
+### Defining the tip types
+
+The next thing we want to do is to specify the locations associated with each of the
+samples included in our analysis.
+
+>
+> Expand the BDMM-Prime tree prior by clicking the arrow to the left of Tree.t:h3n2_2deme.
+>
+> Scroll down to end of the tree prior section and find the table associating tree leaves
+> with locations. Notice that the sample names have the form ID_Location_Date.
+>
+> To extract the locations from the sample names, click the **Auto-configure** button,
+> select **split on character**, ensure "_" is specified as the delimiter, and select
+> "2" from the **take group(s)** drop-down menu.  Once this is complete, press "Ok".
+>
 
 <figure>
-	<a id="fig:tree-prior"></a>
-	<img style="width:100%;" src="figures/11-tree-prior.png" alt="">
-	<figcaption>Figure 11: Set the change time for the sampling proportion so it is zero before the time of the first sample.</figcaption>
+	<a id="fig:tip-types"></a>
+	<img style="width:100%;" src="figures/7-tip-types.png" alt="">
+	<figcaption>Figure 7: Setting the tip types using Auto-configure.</figcaption>
 </figure>
 <br>
 
-<!--When you expand the tree prior element, you can change the condition on survival setting. We'll leave the box checked.
+
+The table should now be populated with types extracted from the sample names.
 
 <figure>
-	<a id="fig:"></a>
-	<img src="figures/9b-condition.png" alt="">
-	<figcaption>Figure 11: Condition on survival.</figcaption>
+	<a id="fig:tip-types-set"></a>
+	<img style="width:100%;" src="figures/8-tip-types-set.png" alt="">
+	<figcaption>Figure 8: Setting the tip types.</figcaption>
 </figure>
-<br>-->
+<br>
 
-#### What if you have more demes?
 
-First things first, for an analysis with more demes you need to set the `Number of demes` to the appropriate value, e.g. N, that actually corresponds to the number of demes in the dataset.
-When you do that, the dimensions of the parameters `Reproduction number`, `BecomeUninfectiousRate`, `SamplingProportion` and `Migration rates` will change.
-The `Reproduction number` and the `BecomeUninfectiousRate` will have as many values as you have demes.
-The dimensionality of the `SamplingProportion` will be the number of demes times 2, so in case you have 4 demes your sampling proportion will need 8 values.
-You can view this parameter as a matrix of 2 x N values, which is flattened by row.
-The first column reflects the sampling rate before first sample and all of the values in it should be set to 0.
-The `Sampling change time` obviously does not change dimensionality, but has to be set to the appropriate time for your dataset.
-Finally, the `Migration rates` will have N * (N - 1) entries.
-As one can imagine, the matrix should have the dimensions of N * N, however since there is no migration from a deme to itself (values on the diagonal of the matrix), we subtract N values from the dimensionality, getting N * (N - 1).
+### Configuring the multi-type model
+
+Now we get to the main part of the analysis setup, where we decide exactly how
+to model the generation of our data. In our case, we want to model a small part
+of the global transmission dynamics of H3N2.
+
+The first thing to do is to is to select our desired parameterization
+of the birth-death model. In our case, as we're analysing pathogen
+sequences in an attempt to reconstruct transmission dynamics, we'll
+use the epidemiological parameterization.
+
+>
+> Scroll to the top of the tree prior and select **Epi Parameterization** from the
+> drop-down menu at the top of the expanded section.
+> 
+
+<figure>
+	<a id="fig:parameterization"></a>
+	<img style="width:100%;" src="figures/parameterization.png" alt="">
+	<figcaption>Setting the parameterization types.</figcaption>
+</figure>
+<br>
+
+With this done, the next task is to define the dimensionality and
+initial values of the multi-type birth-death parameters. In BDMM-Prime,
+each of these parameters is considered a "skyline parameter" which can
+change in a piecewise-constant fashion through time.
+
+The first skyline parameter to consider is the Re parameter, representing
+the effective reproductive number.  By default parameter values are
+assumed to be the same across all types, however we want to allow the
+reproductive number to take location-specific values.
+
+> 
+> For the Re skyline parameter, uncheck the **Scalar values** check box to
+> allow this parameter to take type-dependent values.
+>
+
+<figure>
+	<a id="fig:Re"></a>
+	<img style="width:100%;" src="figures/Re.png" alt="">
+	<figcaption>Allowing type-specific Re values.</figcaption>
+</figure>
+<br>
+
+
+The next parameter is the "become uninfectious rate" parameter,
+representing the rate at which infected individuals become
+uninfectious. This parameter includes the rate at which individuals
+recovering on their own, together with the rate at which they are
+removed from the population due to the sampling process.  Since it is
+dictated by disease progression, this parameter is sometimes assumed
+to be a function of the pathogen itself rather than location.  That
+said, there are many reasons that it may be location-dependent in
+reality. (Can you think of any?)
+
+In any case, for the sake of this tutorial we will assume here that it
+takes a single value which is shared among types. Furthermore, as
+influenza infections often take a relatively short time to pass, we
+will initialise this value to correspond to an infectious period of 1
+week.
+
+> 
+> Find the **Become Uninfectious Rate** parameter, double-click the starting value and
+> change it to 52 (per year).  **Be sure to press "Enter" to cause BEAUti to accept
+> the new value.**
+> 
+
+<figure>
+	<a id="fig:buRate"></a>
+	<img style="width:100%;" src="figures/buRate.png" alt="">
+	<figcaption>Setting the starting value of the shared "become uninfectious rate".</figcaption>
+</figure>
+<br>
+
+Now let's consider the Sampling Proportion parameter. This parameter requires
+special care, as the sampling assumptions of the model can dramatically influence
+inference results.  In our case we want (a) to allow for type-dependent sampling proportions
+and (b) to fix the sampling proportion to zero for all times earlier than the first
+sample. Allowing for type-dependent sampling proportions prevents us from having to
+assume that the number of samples we have in each location are proportional to the
+infected population in each of these individuals.  On the other hand, setting the
+sampling proportion to zero prevents the model from interpreting the lack of samples
+prior to a specific date as evidence for the absence of infected hosts in these earlier
+times.
+
+In BDMM-Prime, this configuration is reasonably simple to configure.
+> 
+> Find the Sampling Proportion parameter, then follow these steps:
+> 1. Uncheck the **Scalar value** checkbox to allow for type-dependent values.
+> 2. Check **Display visualization** to see the distribution of sample times relative
+>    to the most recent sample.
+> 3. Set the **Number of change times** value to 1.  (Notice the appearance of the epoch
+>    boundary marker on the visualisation.)
+> 4. Set the change time for the boundary between epoch 1 and 2 to 5.6. (Notice that this
+>    value ensures the oldest sample remains in epoch 1.)
+> 5. In the **Values** table, double-click the entries corresponding to
+>    the sampling proportion values for Epoch 2 and change each to 0.0,
+>    **remembering to press "enter" after each change.**
+> 
+
+Note **skyline parameter values of 0 are always fixed in the analysis**, regardless of
+whether or not the "estimate values" option is checked.
+
+<figure>
+	<a id="fig:sampSetup"></a>
+	<img style="width:100%;" src="figures/sampSetup.png" alt="">
+	<figcaption>Configuring the sampling proportion parameter.</figcaption>
+</figure>
+<br>
+
+Finally, we need to define how lineages change type in our multi-type
+model.  Like BDMM, BDMM-Prime allows both direct "migration" as well
+as "birth to a new type" styles of multi-type models.  Given we are
+modelling the movement of infected influenza hosts, migration suits
+our situation best.  We also acknowledge that migration rates between
+different pairs of types/locations may be different from one another.
+
+To incorporate these decisions, follow these instructions:
+> 
+> Find the **Migration Rate** parameter, then:
+> 1. Double-click on the **Value** and change it from it's default to the smaller
+>    rate of 0.1 (any infected individual has a roughly 10% chance of moving between
+>    the two locations in any given year).
+> 2. Uncheck the **Scalar values** checkbox to allow rates to vary between pairs of
+>    locations.
+> 3. Check the **Estimate values** checkbox to ensure these migration
+>    rates are estimated.
+>
+<figure>
+	<a id="fig:migRate"></a>
+	<img style="width:100%;" src="figures/migRate.png" alt="">
+	<figcaption>Configuring the migration rate parameter.</figcaption>
+</figure>
+<br>
+
 
 ### Setting up other priors
 
-By default, BEAST2 provides you with a prior distribution for each of the parameters of your model.
-This is done because otherwise BEAUTi will have a hard time displaying all of the parameters without any settings provided.
-Unfortunately, this means that some priors are very generic, and, moreover, some priors are in fact, improper – the distribution does not integrate to one.
-This means that while the default setup might work and the runs will eventually mix, it can happen that the values are meaningless.
+BEAST2 provides a default prior distribution for each of the
+parameters of your model which you've chosen to estimate.  These
+priors are often very broad, and are "improper" - so broad that the
+area under the distribution cannot be computed.  Thus it is important
+to go through the parameters and set priors according to the
+information we have about our dataset.
 
-So, let us go through the important parameters and set priors according to the information we have about our dataset.
-The first important parameter is R<sub>0</sub>.
-In epidemiology, the basic reproduction number, R<sub>0</sub>, of an infection is the number of secondary cases one case generates on average over the course of its infectious period, in an otherwise uninfected population.
-The default prior sets the median value of the distribution to e<sup>0</sup> = 1, which will fit the endemic case of influenza.
+The first important parameter is the effective reproductive number, Re. In epidemiology, the reproductive number of an epidemic is the number of secondary cases one case generates on average over the course of its infectious period.  (A more fundamental quantity, the basic reproductive number R0, is the same but applied to a naive host population.) Values greater than 1 indicate expansion of the infected host population, while smaller values indicate contraction.
 
-<!-- todo: (ideally) adjust analysis files to remove the upper bound of 10, it shouldn't be necessary -->
+In practice, Re values tend to be within an order of magnitude of 1.0.  Thus we will apply
+a Log Normal prior distribution to this parameter, centred on 1.0.
+
+> 
+> Collapse the tree prior by again clicking the arrow head to the left of Tree.t:h3n2_2deme.
+>
+> Expand the Re prior by clicking the arrow head to the left of ReEpi.t:h3n2_2deme.
+>
+> Select **LogNormal** from the drop-down list of distributions.
+>
+> Set the **M** value to 0.0 and the **S** value to 0.5.
+>
 
 <figure>
 	<a id="fig:R0-prior"></a>
-	<img style="width:100%;" src="figures/12-R0-prior.png" alt="">
-	<figcaption>Figure 12: Set the prior for the R<sub>0</sub>.</figcaption>
+	<img style="width:100%;" src="figures/RePrior.png" alt="">
+	<figcaption>Figure 12: Set the prior for the Re.</figcaption>
 </figure>
 <br>
 
-Next, we should adjust the prior for the rate of clearing the infection, which is labelled as `becomeUninfectiousRate.t:h3n2_2deme`.
-The value of the rate, say x, is the reciprocal of the average time a person with influenza is infectious, 1/x.
-From what we know about influenza we can say that an average infection lasts for about a week, however we would not want to impose too strong of a prior on this parameter.
-Let us change the distribution for this parameter to a `LogNormal` and tick the `Mean in Real Space` checkbox to make the setting easier.
-So, for a mean time of recovery of 7 days we need to set the mean of our distribution to 365/7 {% eqinline \approx %} 52.14 (or to 52 for simplicity).
-Bear in mind that our time units are years, so we can not just set the rate to 1/7.
-This prior will ensure that we mainly sample realistic parameter values, but still gives BEAST2 quite a lot of freedom to go to extreme values if need be, as the 95% highest density interval for the prior is [4.44, 224], or [1.63, 82.21] infectious days.
-You can see the setup in [Figure 13](#fig:bUR-prior).
+Next, we consider the prior on the "become uninfectious rate". As mentioned above, this rate describes how quickly individual infected individuals become uninfectious *to the rest of the population*, be that through recovery, quarantine, or some other process.
+
+We know that for influenza an average infection lasts around a week.
+What rate value does this correspond to?  To determine this, consider
+that our rates describe the probability per unit time that the
+corresponding event happens on a single lineage. The time unit in this
+case is "year", since our tip dates were specified in fractional
+years.  Thus the become uninfectious rate value specifies the
+probability per year (calculated instantaneously) that an individual
+becomes uninfectious. An average infectious interval of one week (1/52 years)
+corresponds to an average become uninfectious rate of 1/(1/52)=52 in units
+of inverse years.
+
+For our analyisis we will therefor place a Log Normal prior on the become
+uninfectious parameter with a mean of 52 and an S parameter to allow for
+some variation around this mean.
+
+> 
+> Expand the become uninfectious prior by clicking the arrow to the left of
+> becomeUninfectiousRateEpi.t:h3n2_2deme.
+>
+> Select **Log Normal** from the drop-down list of distributions.
+>
+> Set the **M** value to 52.0 and the **S** value to 0.5.
+>
+> Ensure the **Mean in Real Space** checkbox is checked.
+>
 
 <figure>
-	<a id="fig:bUR-prior"></a>
-	<img style="width:100%;" src="figures/13-bUR-prior.png" alt="">
-	<figcaption>Figure 13: Set the prior for the rate of recovery.</figcaption>
+	<a id="fig:buRatePrior"></a>
+	<img style="width:100%;" src="figures/buRatePrior.png" alt="">
+	<figcaption>Set the prior for the become uninfectious rate.</figcaption>
 </figure>
 <br>
 
+
+We now consider the sampling proportion prior. We will set this prior
+to a narrow distribution peaked around the very low values, as
+influenza spreads easily, but only few people actually get sampled.
+Taking into account that we are also using a thinned-down version of
+the dataset, we can use a diffuse prior with the mean around
+10<sup>-3</sup>.
+Again we will use a truncated `Log Normal` prior, with the mean at 10<sup>-3</sup>.
+
+>
+> Expand the sampling proportion prior by clicking the arrow to the left of
+> samplingProportionEpi.t:h3n2_2deme.
+>
+> Select **Log Normal** from the drop-down list of distributions.
+>
+> Set the **M** value to 0.001 and the **S** value to 0.5.
+>
+> Ensure the **Mean in Real Space** checkbox is checked.
+>
+
+Note that this prior will be automatically truncated to the unit interval [0,1],
+and will be applied only to the non-zero sampling proportions.
+
+<figure>
+	<a id="fig:sampPropPrior"></a>
+	<img style="width:100%;" src="figures/sampPropPrior.png" alt="">
+	<figcaption>Set the prior for sampling proportion.</figcaption>
+</figure>
+<br>
+
+
+In setting the migration rate prior, consider that the migration rate governs the speed of
+movement of infected individuals between the locations in question: Hong Kong and New Zealand.
+For the purpose of the tutorial, we will assume that a given infected individual has only a
+10% chance of visiting the other country in any given year.
+
+>
+> Expand the migration rate prior by clicking the arrow to the left of
+> migrationRateEpi.t:h3n2_2deme
+>
+> Select **Exponential** from the drop-down list of distributions.
+>
+> Set the **mean** value to 0.1.
+>
+
+Our use of an Exponential distribution rather than a Log Normal distribution here
+is a practical consideration to improve mixing of this tutorial analysis.  In a
+real analysis one should think carefully about how 
+
+<figure>
+	<a id="fig:mig-rate-prior"></a>
+	<img style="width:100%;" src="figures/migRatePrior.png" alt="">
+	<figcaption>Set the prior for the migration rate.</figcaption>
+</figure>
+<br>
+
+
 We will also set the prior for the clock rate to a distribution that is in accordance with what we know about RNA viruses, which is that in general their mean substitution rate is around {% eqinline \approx %} 10^(-3).
-We shall set the distribution for `clockRate.c:h3n2_2deme` to `Log Normal` with the mean of 0.001, with the `Mean in Real Space` checkbox checked.
-We will leave the `S` parameter (standard deviation) at the default value of 1.25 to allow BEAST2 a lot of freedom in case it is necessary.
-The appropriate prior setup can be seen in [Figure 14](#fig:clock-rate-prior).
+
+>
+> Expand the clock rate prior by clicking the arrow to the left of clockRate.c:h3n2_2deme
+>
+> Select **Log Normal** from the drop-down list of distributions.
+>
+> Set the **M** value to 0.005 and the **S** value to 0.5.
+>
+> Make sure to check the **Mean in Real Space** checkbox.
+>
 
 <figure>
 	<a id="fig:clock-rate-prior"></a>
-	<img style="width:100%;" src="figures/14-clock-rate-prior.png" alt="">
-	<figcaption>Figure 14: Set the prior for the clock rate.</figcaption>
+	<img style="width:100%;" src="figures/clockRatePrior.png" alt="">
+	<figcaption>Set the prior for the clock rate.</figcaption>
 </figure>
 <br>
-
-Lastly, we will set the sampling proportion prior to a more narrow distribution peaked around the very low values, as influenza spreads easily, but only few people actually get sampled.
-Taking into account that we are also using a thinned-down version of the dataset, we can use a diffuse prior with the mean around 10<sup>-3</sup>.
-The default prior for the sampling proportion is a `Beta` distribution, which is only defined between 0 and 1, making it a natural choice for proportions.
-Here, however, we will use a `Log Normal` prior, with the mean `M` at 10<sup>-3</sup> and the standard deviation `S` at 1.25 to allow a lot of variance.
-Once again we need to check that the `Mean in Real Space` checkbox is checked, and since the `Log Normal` distribution is defined outside the range of [0, 1] we also need to check that the `Lower` and `Upper` limits are set accordingly. Do so by clicking on the button showing the initial values, next to the distribution type.
-You can see the sampling prior setup in [Figure 15](#fig:samplingProportion-prior)
-
-<figure>
-	<a id="fig:samplingProportion-prior"></a>
-	<img style="width:100%;" src="figures/15-samplingProportion-prior.png" alt="">
-	<figcaption>Figure 15: Set the prior for sampling proportion.</figcaption>
-</figure>
-<br>
-
-
-For the purpose of this tutorial and given that we know little about the outbreak in question to set strict priors on the `rateMatrix`, we will leave the other priors on the default values, but feel free to go through them yourself and verify their sensibility.
 
 ## Saving the configuration
 
-Once you are done with setting all the appropriate parameters, you can save the configuration file.
-We will leave the `MCMC` panel parameters as they are by default.
+We will leave the `MCMC` panel settings to their default values.
+
+>
+> Save the configuration file as h3n2-bdmmprime.xml.  (Be sure to note
+> where you have saved it!)
+>
 
 # Running the analysis using BEAST
 
-To run the analysis, simply start BEAST 2 in the manner appropriate for your platform, then select the configuration file you generated in the last section as the input.
-Unfortunately, this particular run will take quite some time to mix, e.g. on a MacBook Pro with 3.1 GHz Intel Core i5 processor it takes about 3 hours for 10'000'000 samples.
-Feel free to run it and observe the results, but for the purpose of finishing the tutorial in a reasonable time, check out the provided log file to see the results.
+To run the analysis, simply start BEAST 2 in the manner appropriate
+for your platform, then select the configuration file you generated in
+the last section as the input.
+
+Note that this particular analysis can take quite some time to run to
+completion.  (On a MacBook Pro with 3.1 GHz Intel Core i5 processor it
+takes about 3 hours for 10'000'000 samples.)  Try to run it and
+observe the results, but for the purpose of finishing the tutorial in
+a reasonable time, check out the provided log file to see the results.
 
 # Analyzing the results
 
 The results of the analysis primarily consist of two parts:
 
-1. The parameter log, which is written to the file `h3n2-bdmm.log`.
-2. The tree log, which is written to `h3n2-bdmm.h3n2_2deme.trees`.
+1. The parameter log, which is written to the file `h3n2-bdmmprime.log`.
+2. The multi-type tree log, which is written to `h3n2-bdmmprime.h3n2_2deme.typed.trees`.
 
-In addition, the file `h3n2-bdmm.h3n2_2deme.map.trees` contains the running
-estimate of the MAP tree as a function of MCMC step number, while the file
-`h3n2-bdmm.h3n2_2deme.typedNode.trees` is the TreeAnnotator-compatible file
-we'll use to assemble a summary tree.
+The additional file `h3n2-bdmmprime.h3n2_2deme.typed.node.trees` is the
+TreeAnnotator-compatible file we'll use to assemble a summary tree.
+(The `h3n2-bdmmprime.h3n2_2deme.trees` file is a tree log containing the
+trees without any type information.  It is safe to ignore this for now.)
 
 ## Parameter log file analysis
 
-We can use the program [Tracer](https://github.com/beast-dev/tracer/releases/tag/v1.7.2) to view the parameter log file.
+We can use the program [Tracer](https://github.com/beast-dev/tracer/releases/) to view the parameter log file.
 To do this, start Tracer and then press the `+` button in the top-left hand corner of the window (under `Trace File`).
-Select the log file for this analysis (`h3n2-bdmm.log`) from the file selection dialog box.
+Select the log file for this analysis (`h3n2-bdmmprime.log`) from the file selection dialog box.
 You can also simply drag your log file from the file browser to the Tracer window.
 The `Traces` table will then be populated with parameters and summary
 statistics corresponding to our multitype birth-death analysis.
 
 Important traces are:
 
-* `R0.t:h3n2_2deme.1` and `R0.t:h3n2_2deme.2`: These give the effective reproduction numbers for deme 1 (Hong Kong) and 2 (New Zealand), respectively.
+* `ReSPEpi.HongKong` and `ReSPEpi.NewZealand`: These give the effective reproduction numbers Hong Kong and New Zealand, respectively.
 
-* `becomeUninfectiousRate.t:h3n2_2deme.1` and `becomeUninfectiousRate.t:h3n2_2deme.2`: These are the rates of recovery for someone with flu in either of the locations.
+* `becomeUninfectiousRateSPEpi`: This is the overall become uninfectious rate.
 
-* `rateMatrix.t:h3n2_2deme.1` and `rateMatrix.t:h3n2_2deme.2`: These give the (per lineage per year) migration rates from deme 1 to 2 and vice versa.
+* `migrationRateSPEpi.HongKong_to_NewZealand` and `migrationRateSPEpi.NewZealand_to_HongKong`: These give the (per lineage per year) migration rates from Hong Kong to New Zealand and vice versa.
 
-* `Tree.t:h3n2_2deme.count_HongKong_to_NewZealand`: these give the number of ancestral migrations from Hong Kong to New Zealand on the inferred tree, **backwards in time**.
+* `typeMappedTree.count_HongKong_to_NewZealand` and `typeMappedTree.count_NewZealand_to_HongKong` : this gives the number of ancestral migrations from Hong Kong to New Zealand and vice versa on the inferred tree.
 
 The tabs at the top-right of the window can be used to display one or more selected traces in various ways.
 We can look at the become uninfectious rate by selecting the `becomeUninfectiousRate.t:h3n2_2deme.1` trace (see [Figure 16](#fig:tracer-bUR)).
@@ -437,7 +657,7 @@ The popular phylogenetic tree visualizer [FigTree](http://tree.bio.ed.ac.uk/soft
 However, Figtree can be quite slow with MultiTypeTree log files, so for this tutorial we suggest using [IcyTree](https://icytree.org/) to view tree log files.
 IcyTree is a tree viewer that runs in a web browser, which runs best under recent versions of [Google Chrome](http://www.google.com/chrome) and [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/) (in that order).
 
-To view MultiTypeTree log files using IcyTree, simply navigate to the IcyTree web page, select `Load from file` from the `File` menu, then select the `h3n2-bdmm.h3n2_2deme.trees` tree log file using the file selection dialog.
+To view MultiTypeTree log files using IcyTree, simply navigate to the IcyTree web page, select `Load from file` from the `File` menu, then select the `h3n2-bdmmprime.h3n2_2deme.trees` tree log file using the file selection dialog.
 Alternatively, you can simply drag the log file into your browser window.
 Once the file is loaded you will see the first tree it contains.
 In order to select a different tree, hover the mouse pointer over the box in the lower-left corner of the window.
@@ -457,26 +677,35 @@ You can browse the trees from your posterior sample (example of the trees you ca
 </figure>
 <br>
 
-One way of summarising is done by the special `MultiTypeTree` log, which logs the running estimates of the <i>maximum a posteriori</i> multi-type tree over the course of the analysis.
-In our case it is the `h3n2-bdmm.h3n2_2deme.map.trees` file.
-You can see the last tree from this file, which represents our sampled estimate of the MAP multi-type tree, in [Figure 19](#fig:icyTree-MAP).
-
-<figure>
-	<a id="fig:icyTree-MAP"></a>
-	<img style="width:100%;" src="figures/19-icyTree-MAP.png" alt="">
-	<figcaption>Figure 19: The final MAP multi-type tree in IcyTree.</figcaption>
-</figure>
-<br>
 
 ## Producing a summary tree using `TreeAnnotator`
 
-While it is tempting to view the MAP tree shown above as the primary result of the phylogenetic side of our analysis it is very important to remember that this is only a point estimate and says nothing about the uncertainty present in the result.
-This is an important drawback, as we have done a full Bayesian analysis and have access to a large number of samples from the full posterior in the tree log files.
-The MAP tree discards almost all of this information.
+We can make better use of our raw analysis results by using the
+`TreeAnnotator` program which is distributed with BEAST2 to analyze
+the sample of trees which was produced by our MCMC run. Until recently
+the _maximum clade credibility_ tree (MCC) has been the default
+summary method in TreeAnotator.
 
-We can make better use of our raw analysis results by using the `TreeAnnotator` program which is distributed with BEAST2 to analyze the sample of trees which was produced by our MCMC run. Until recently the _maximum clade credibility_ tree (MCC) has been the default summary method in TreeAnotator. To produce MCC trees TreeAnotator takes the set of trees and find the best supported tree by maximising the product of the posterior clade probabilities. It will then annotate this representative summary tree with the mean ages of all the nodes and the corresponding 95% HPD ranges as well as the posterior clade probability for each node. A new point estimate, called a _conditional clade distribution_ tree (CCD) has been proposed {% cite berling2025 --file Structured-birth-death-model/refs.bib %}. It has been shown to outperform MCC in terms of accuracy (based on Robinson-Foulds distance to the true tree) and precision (how different are the point estimates calculated for replicate MCMC chains). CCD methods may produce a tree that would be well supported but has not been sampled during MCMC. This is beneficial for large trees and complex parameter regimes. Since both methods are still widely used, we show how to use them to summarise the posterior tree distribution. **To save time, you may run just one method and compare it to the other using the example below.**
+To produce MCC trees, TreeAnotator takes the set of trees and find the
+best supported tree by maximising the product of the posterior clade
+probabilities. It will then annotate this representative summary tree
+with the mean ages of all the nodes and the corresponding 95% HPD
+ranges as well as the posterior clade probability for each node.
 
-### Producing MCC tree
+Another point estimate, called a _conditional clade distribution_ tree (CCD)
+has been proposed {% cite berling2025 --file Structured-birth-death-model/refs.bib %}.
+This has been shown to outperform MCC in terms of accuracy (based on
+Robinson-Foulds distance to the true tree) and precision (how
+different are the point estimates calculated for replicate MCMC
+chains). CCD methods may produce a tree that would be well supported
+but has not been sampled during MCMC. This is beneficial for large
+trees and complex parameter regimes. Since both methods are still
+widely used, we show how to use them to summarise the posterior tree
+distribution.
+
+**To save time, you may run just one method and compare it to the other using the example below.**
+
+### Producing an MCC summary tree
 
 > Start **TreeAnnotator**
 > 
@@ -497,7 +726,7 @@ The setup can be seen in [Figure 20](#fig:TreeAnnotator-setup).
 </figure>
 <br>
 
-### Producing CCD0 tree
+### Producing CCD0 summary tree
 
 To produce CCD0 summary tree, you will first need to install the CCD package.
 > Open BEAUTi
