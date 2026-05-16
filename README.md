@@ -31,7 +31,7 @@ assembled from publicly-available data sets provided by various authors on
 [GenBank](http://www.ncbi.nlm.nih.gov/genbank/).
 
 (The BDMM-Prime package can be used for a wide range of single- and multi-type birth-death-skyline (BDSKY) model analyses, including birth-death population trajectory inference
-{% cite Vaughan2025 -- file Structured-birth-death-BDMM-Prime/refs %}.  See the full documentation at the [package website](https://tgvaughan.github.io/BDMM-Prime) for more details.)
+{% cite Vaughan2025 --file Structured-birth-death-BDMM-Prime/refs %}.  See the full documentation at the [package website](https://tgvaughan.github.io/BDMM-Prime) for more details.)
 
 ## Software Requirements
 
