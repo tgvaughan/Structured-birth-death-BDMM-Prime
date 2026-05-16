@@ -790,6 +790,8 @@ We now visualise the summary trees.
 >
 > Open the `Style` menu and select `Relative edge width > type.prob`.
 
+Our choice to colour the *nodes* rather than the *branches* is due to the summary methods only summarizing the type at internal nodes: colouring the branches with these values would produce a misleading representation.
+
 Once these style preferences have been set, you should see something similar to the MCC or CCD0 trees shown in the figures below.
 
 <figure>
