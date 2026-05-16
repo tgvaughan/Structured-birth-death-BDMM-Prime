@@ -1,6 +1,6 @@
 ---
 author: Denise Kühnert, Jūlija Pečerska, Ugnė Stolz, Tim Vaughan
-level: Professional
+level: Intermediate
 title: Structured birth-death model with BDMM-Prime
 subtitle: Population structure using the multi-type birth-death model
 beastversion: 2.7.7
