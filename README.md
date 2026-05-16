@@ -397,7 +397,7 @@ In BDMM-Prime, this configuration is reasonably simple to configure.
 >    **remembering to press "enter" after each change.**
 > 
 
-Note **skyline parameter values of 0 are always fixed in the analysis**, regardless of
+Note: **skyline parameter values of 0 are always fixed in the analysis**, regardless of
 whether or not the "estimate values" option is checked.
 
 <figure>
@@ -778,11 +778,17 @@ Now you can proceed to make CCD0 tree. Use the exactly same set up as for MCC tr
 
 ## Visualising the summary tree
 
-To visualize this tree, open IcyTree once more (maybe open it in a new browser tab), choose `File > Load from file`, then use file selection dialog and select either select either `h3n2-bdmmprime.h3n2_2deme.mcc_summary.tree` or `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.tree` to load MCC or CCD0 summary tree respectivelly.
-Follow the instructions provided above to colour the tree by the `type` attribute and add the legend and time axis.
-In addition, open the `Style` menu and select `Node height error bars > height_95%_HPD` to add error bars to the internal node heights.
-Finally, open the `Style` menu and select `Relative edge width > type.prob`.
-This makes the edges become increasingly thinner as the posterior probability for the displayed branch decreases.
+We now visualise the summary trees.
+
+> Open IcyTree once more (maybe open it in a new browser tab).
+>
+> Choose `File > Load from file`, then use file selection dialog and select either select either `h3n2-bdmmprime.h3n2_2deme.mcc_summary.tree` or `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.tree` to load MCC or CCD0 summary tree, respectivelly.
+>
+> Select `Style > Colour nodes by > type` and display the legend and time axis as above.
+>
+> Open the `Style` menu and select `Node height error bars > height_95%_HPD` to add error bars to the internal node heights.
+>
+> Open the `Style` menu and select `Relative edge width > type.prob`.
 
 Once these style preferences have been set, you should see something similar to the MCC or CCD0 trees shown in the figures below.
 
@@ -800,18 +806,22 @@ Once these style preferences have been set, you should see something similar to 
 </figure>
 <br>
 
-Here we have a full consensus tree annotated by the locations at coalescence nodes and showing node height uncertainty, with the width of the edges representing how certain we can be of the location estimate at each point on the tree.
+Here we have a full consensus tree annotated by the locations at coalescence nodes and showing node height uncertainty.
+
 This is a much more comprehensive summary of the phylogenetic side of our analysis.
-One thing to pay attention to here is that the most probable root location in the summary tree is Hong Kong (under our model which assumes that only Hong Kong and New Zealand exist).
+One thing to pay attention to here is that the most probable root location in the summary tree is Hong Kong .
 Hovering the mouse cursor over the tiny edge above the root will bring up a table in which posterior probability of the displayed root location (`type.prob`) can be seen.
-In this analysis we see that it is about 91%.
+In this analysis we see that it is well over 95%.
 The analysis therefore strongly supports a Hong Kong origin over a New Zealand origin for this flu sample.
+
+When interpreting these results however, it is crucial to revisit the assumptions which we've made through our modelling choices.  Most importantly, we have conducted this analysis under a two-deme model which assumes that only Hong Kong and New Zealand exist as possible locations for infected individuals.  In reality of course, while the samples themselves originated from these two locations, the lineages ancestral to these samples were not subject to this constraint.  Thus, if anything can be drawn at all from this analysis, it is only that the likely location of the common ancestor may have been more closely connected to Hong Kong than New zealand.
+
 
 ### MCC and CCD0 summary tree comparison (Optional)
 
 Now, compare the figures for MCC and CCD0 summary trees. Can you see some differences?
 
-One of the CCD0 summary method advantages is that it can evaluate tree topologies that were not sampled during the MCMC. This is why it usually performs better on high-entropy (uncertain, spread out) tree posterior. Knowing this, what observations can you make about our sample?
+One of the advantages of the CCD0 summary method is that it can produce a likely summary tree topology even when that exact topology does not include in the set produced by the MCMC. This capabiility makes it more suitable than MCC, particularly for analyses in which the tree topology is not well resolved. Knowing this, what observations can you make about our sample?
 
 ----
 
