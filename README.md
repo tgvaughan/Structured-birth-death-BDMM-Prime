@@ -10,8 +10,8 @@ tracerversion: 1.7.3
 
 # Introduction
 
-In this tutorial we will use the [BEAST2](http://www.beast2.org/)
-[BDMM-Prime](https://tgvaughan.github.io/BDMM-Prime) package to perform a Bayesian
+In this tutorial we will use the [BEAST2](http://www.beast2.org/) package
+[BDMM-Prime](https://tgvaughan.github.io/BDMM-Prime) to perform a Bayesian
 phylogenetic analysis of an influenza data set using the multi-type birth-death
 model {% cite Kuhnert2016 --file Structured-birth-death-BDMM-Prime/refs.bib %}.
 
@@ -29,6 +29,9 @@ The data set used in this tutorial is a thinned 60 sequence subset of the
 980 sequence H3N2 influenza data set used in the publication {% cite Vaughan2014 --file Structured-birth-death-BDMM-Prime/refs.bib %}, which in turn was
 assembled from publicly-available data sets provided by various authors on
 [GenBank](http://www.ncbi.nlm.nih.gov/genbank/).
+
+(The BDMM-Prime package can be used for a wide range of single- and multi-type birth-death-skyline (BDSKY) model analyses, including birth-death population trajectory inference
+{% cite Vaughan2025 -- file Structured-birth-death-BDMM-Prime/refs.bib %}.  See the full documentation at the [package website](https://tgvaughan.github.io/BDMM-Prime) for more details.)
 
 ## Software Requirements
 
@@ -62,7 +65,7 @@ IcyTree ([https://icytree.org](https://icytree.org)) is a browser-based phylogen
 
 ## Installing the BDMM-Prime package
 
-You can easily install the `BDMM-Prime` package via BEAUti's package manager.  To do this, follow these steps:
+You can install the `BDMM-Prime` package via BEAUti's package manager.  To do this, follow these steps:
 
 > Start BEAUti;
 >
@@ -457,7 +460,7 @@ a Log Normal prior distribution to this parameter, centred on 1.0.
 <figure>
 	<a id="fig:R0-prior"></a>
 	<img style="width:100%;" src="figures/RePrior.png" alt="">
-	<figcaption>Figure 12: Set the prior for the Re.</figcaption>
+	<figcaption>Set the prior for the Re.</figcaption>
 </figure>
 <br>
 
@@ -634,14 +637,14 @@ While the distributions are visibly different, they cover the same parameter ran
 <figure>
 	<a id="fig:tracer-bUR"></a>
 	<img style="width:100%;" src="figures/16-tracer-bUR.png" alt="">
-	<figcaption>Figure 16: Estimated become uninfectious rate marginal posterior.</figcaption>
+	<figcaption>Estimated become uninfectious rate marginal posterior.</figcaption>
 </figure>
 <br>
 
 <figure>
 	<a id="fig:tracer-R0"></a>
 	<img style="width:100%;" src="figures/17-tracer-R0.png" alt="">
-	<figcaption>Figure 17: Estimated R<sub>0</sub> marginal posteriors.</figcaption>
+	<figcaption>Estimated R<sub>0</sub> marginal posteriors.</figcaption>
 </figure>
 <br>
 
@@ -667,12 +670,12 @@ You can also directly enter the index of a tree.
 Initially the tree edges will be uncoloured.
 To colour the edges according to the edge type (this is the strain location in our case), navigate to `Style > Colour edges by` and select `type`.
 A legend and axis can be added by choosing `Display legend` and `Axis > Age` from the same menu.
-You can browse the trees from your posterior sample (example of the trees you can see in [Figure 18](#fig:icyTree-trees)) to look at the traits they share, however in general we need some sort of a summary to be able to draw conclusions from our tree sample.
+You can browse the trees from your posterior sample (as in the figure below) to look at the traits they share, however in general we need some sort of a summary to be able to draw conclusions from our tree sample.
 
 <figure>
 	<a id="fig:icyTree-trees"></a>
 	<img style="width:100%;" src="figures/18-icyTree-trees.png" alt="">
-	<figcaption>Figure 18: An example of a sampled multi-type tree in IcyTree.</figcaption>
+	<figcaption>An example of a sampled multi-type tree in IcyTree.</figcaption>
 </figure>
 <br>
 
@@ -692,7 +695,7 @@ with the mean ages of all the nodes and the corresponding 95% HPD
 ranges as well as the posterior clade probability for each node.
 
 Another point estimate, called a _conditional clade distribution_ tree (CCD)
-has been proposed {% cite berling2025 --file Structured-birth-death-model/refs.bib %}.
+has been proposed {% cite berling2025 --file Structured-birth-death-BDMM-Prime/refs.bib %}.
 This has been shown to outperform MCC in terms of accuracy (based on
 Robinson-Foulds distance to the true tree) and precision (how
 different are the point estimates calculated for replicate MCMC
@@ -716,12 +719,12 @@ distribution.
 > 
 > Pressing the **Run** button will produce an annotated summary tree.
 
-The setup can be seen in [Figure 20](#fig:TreeAnnotator-setup).
+The setup can be seen in the figure below.
 
 <figure>
 	<a id="fig:TreeAnnotator-setup"></a>
 	<img style="width:75%;" src="figures/20-TreeAnnotator-setup.png" alt="">
-	<figcaption>Figure 20: Use TreeAnnotator to produce a MCC summary tree.</figcaption>
+	<figcaption>Use TreeAnnotator to produce a MCC summary tree.</figcaption>
 </figure>
 <br>
 
@@ -739,7 +742,7 @@ To produce CCD0 summary tree, you will first need to install the CCD package.
 <figure>
 	<a id="fig:installCCD"></a>
 	<img style="width:80%;" src="figures/installCCD0.png">
-	<figcaption>Figure 21: Install CCD package</figcaption>
+	<figcaption>Install CCD package</figcaption>
 </figure>
 <br>
 
@@ -754,19 +757,19 @@ In addition, open the `Style` menu and select `Node height error bars > height_9
 Finally, open the `Style` menu and select `Relative edge width > type.prob`.
 This makes the edges become increasingly thinner as the posterior probability for the displayed branch decreases.
 
-Once these style preferences have been set, you should see something similar to the MCC tree shown in [Figure 22](#fig:icyTree-mcc) or CCD0 tree shown in [Figure 23](#fig:icyTree-ccd0).
+Once these style preferences have been set, you should see something similar to the MCC or CCD0 trees shown in the figures below.
 
 <figure>
 	<a id="fig:icyTree-mcc"></a>
 	<img style="width:100%;" src="figures/icytree_mcc.png" alt="">
-	<figcaption>Figure 22: The MCC summary tree in IcyTree.</figcaption>
+	<figcaption>The MCC summary tree in IcyTree.</figcaption>
 </figure>
 <br>
 
 <figure>
 	<a id="fig:icyTree-ccd0"></a>
 	<img style="width:100%;" src="figures/icytree_ccd0.png" alt="">
-	<figcaption>Figure 23: The CCD0 summary tree in IcyTree.</figcaption>
+	<figcaption>The CCD0 summary tree in IcyTree.</figcaption>
 </figure>
 <br>
 
@@ -787,12 +790,12 @@ One of the CCD0 summary method advantages is that it can evaluate tree topologie
 
 # Acknowledgment
 
-The content of this tutorial is based on the [Structured Coalescent tutorial](https://github.com/CompEvol/MultiTypeTree/wiki/Beginner's-Tutorial-(short-version)) by Tim Vaughan.
+The content of this tutorial is based on the [Structured birth-death model tutorial](https://taming-the-beast.org/tutorials/Structured-birth-death-model/) by Denise Kühnert and Jūlija Pečerska.
 
 # Useful Links
 
-- [Bayesian Evolutionary Analysis with BEAST 2](http://www.beast2.org/book.html) {% cite BEAST2book2014 --file Structured-birth-death-model/refs.bib %}
-- [Multi-type birth-death process package](https://github.com/denisekuehnert/bdmm) {% cite Kuhnert2016 --file Structured-birth-death-model/refs.bib %}
+- [Bayesian Evolutionary Analysis with BEAST 2](http://www.beast2.org/book.html) {% cite BEAST2book2014 --file Structured-birth-death-BDMM-Prime/refs.bib %}
+- [Multi-type birth-death process package](https://tgvaughan.github.io/BDMM-Prime}
 - BEAST 2 website and documentation: [http://www.beast2.org/](http://www.beast2.org/)
 
 -----
