@@ -794,9 +794,9 @@ The content of this tutorial is based on the [Structured birth-death model tutor
 
 # Useful Links
 
-- [Bayesian Evolutionary Analysis with BEAST 2](http://www.beast2.org/book.html) {% cite BEAST2book2014 --file Structured-birth-death-BDMM-Prime/refs.bib %}
-- [Multi-type birth-death process package](https://tgvaughan.github.io/BDMM-Prime}
-- BEAST 2 website and documentation: [http://www.beast2.org/](http://www.beast2.org/)
+- Multi-type birth-death process package: https://tgvaughan.github.io/BDMM-Prime
+- BEAST 2 website and documentation: http://www.beast2.org/
+- BEAST 2 book: [Bayesian Evolutionary Analysis with BEAST 2](http://www.beast2.org/book.html) {% cite BEAST2book2014 --file Structured-birth-death-BDMM-Prime/refs.bib %}
 
 -----
 
