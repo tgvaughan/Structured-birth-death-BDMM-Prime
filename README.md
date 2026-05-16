@@ -13,7 +13,7 @@ tracerversion: 1.7.3
 In this tutorial we will use the [BEAST2](http://www.beast2.org/) package
 [BDMM-Prime](https://tgvaughan.github.io/BDMM-Prime) to perform a Bayesian
 phylogenetic analysis of an influenza data set using the multi-type birth-death
-model {% cite Kuhnert2016 --file Structured-birth-death-BDMM-Prime/refs.bib %}.
+model {% cite Kuhnert2016 --file Structured-birth-death-BDMM-Prime/refs %}.
 
 The multi-type birth-death model can be used to explain sequence data which have
 evolved within a population that is clearly divided into separate compartments, demes, or types.
@@ -26,12 +26,12 @@ sequences sampled from human hosts in two different geographical
 locations.  These two locations will be our two types in the analysis.
 
 The data set used in this tutorial is a thinned 60 sequence subset of the
-980 sequence H3N2 influenza data set used in the publication {% cite Vaughan2014 --file Structured-birth-death-BDMM-Prime/refs.bib %}, which in turn was
+980 sequence H3N2 influenza data set used in the publication {% cite Vaughan2014 --file Structured-birth-death-BDMM-Prime/refs %}, which in turn was
 assembled from publicly-available data sets provided by various authors on
 [GenBank](http://www.ncbi.nlm.nih.gov/genbank/).
 
 (The BDMM-Prime package can be used for a wide range of single- and multi-type birth-death-skyline (BDSKY) model analyses, including birth-death population trajectory inference
-{% cite Vaughan2025 -- file Structured-birth-death-BDMM-Prime/refs.bib %}.  See the full documentation at the [package website](https://tgvaughan.github.io/BDMM-Prime) for more details.)
+{% cite Vaughan2025 -- file Structured-birth-death-BDMM-Prime/refs %}.  See the full documentation at the [package website](https://tgvaughan.github.io/BDMM-Prime) for more details.)
 
 ## Software Requirements
 
@@ -722,7 +722,7 @@ with the mean ages of all the nodes and the corresponding 95% HPD
 ranges as well as the posterior clade probability for each node.
 
 Another point estimate, called a _conditional clade distribution_ tree (CCD)
-has been proposed {% cite berling2025 --file Structured-birth-death-BDMM-Prime/refs.bib %}.
+has been proposed {% cite berling2025 --file Structured-birth-death-BDMM-Prime/refs %}.
 This has been shown to outperform MCC in terms of accuracy (based on
 Robinson-Foulds distance to the true tree) and precision (how
 different are the point estimates calculated for replicate MCMC
@@ -835,10 +835,10 @@ The content of this tutorial is based on the [Structured birth-death model tutor
 
 - Multi-type birth-death process package: https://tgvaughan.github.io/BDMM-Prime
 - BEAST 2 website and documentation: http://www.beast2.org/
-- BEAST 2 book: [Bayesian Evolutionary Analysis with BEAST 2](http://www.beast2.org/book.html) {% cite BEAST2book2014 --file Structured-birth-death-BDMM-Prime/refs.bib %}
+- BEAST 2 book: [Bayesian Evolutionary Analysis with BEAST 2](http://www.beast2.org/book.html) {% cite BEAST2book2014 --file Structured-birth-death-BDMM-Prime/refs %}
 
 -----
 
 # Relevant References
 
-{% bibliography --cited --file Structured-birth-death-model/refs %}
+{% bibliography --cited --file Structured-birth-death-BDMM-Prime/refs %}
