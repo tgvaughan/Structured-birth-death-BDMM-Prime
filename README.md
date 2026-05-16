@@ -1,5 +1,5 @@
 ---
-author: Denise Kühnert, Jūlija Pečerska, Tim Vaughan
+author: Denise Kühnert, Jūlija Pečerska, Ugnė Stolz, Tim Vaughan
 level: Professional
 title: Structured birth-death model with BDMM-Prime
 subtitle: Population structure using the multi-type birth-death model
