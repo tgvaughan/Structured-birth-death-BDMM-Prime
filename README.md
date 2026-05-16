@@ -611,10 +611,15 @@ trees without any type information.  It is safe to ignore this for now.)
 ## Parameter log file analysis
 
 We can use the program [Tracer](https://github.com/beast-dev/tracer/releases/) to view the parameter log file.
-To do this, start Tracer and then press the `+` button in the top-left hand corner of the window (under `Trace File`).
-Select the log file for this analysis (`h3n2-bdmmprime.log`) from the file selection dialog box.
-You can also simply drag your log file from the file browser to the Tracer window.
-The `Traces` table will then be populated with parameters and summary
+
+> Start Tracer and then press the `+` button in the top-left hand corner of the window
+> (under `Trace File`).
+>
+> Select the log file for this analysis (`h3n2-bdmmprime.log`) from the file selection
+> dialog box. (You can also simply drag your log file from the file browser to the
+> Tracer window.
+
+The `Traces` table will now be populated with parameters and summary
 statistics corresponding to our multitype birth-death analysis.
 
 Important traces are:
@@ -627,40 +632,62 @@ Important traces are:
 
 * `typeMappedTree.count_HongKong_to_NewZealand` and `typeMappedTree.count_NewZealand_to_HongKong` : this gives the number of ancestral migrations from Hong Kong to New Zealand and vice versa on the inferred tree.
 
-The tabs at the top-right of the window can be used to display one or more selected traces in various ways.
-We can look at the become uninfectious rate by selecting the `becomeUninfectiousRate.t:h3n2_2deme.1` trace (see [Figure 16](#fig:tracer-bUR)).
-The 95% HPD for the parameter is quite wide ([18.699, 88.5431]), which is most likely due to the fact that we have very little data, however the mean value is 49.3247, which gives us an infectious period of 7.4 days.
-Next, selecting the two R<sub>0</sub> traces (`R0.t:h3n2_2deme.1` and `R0.t:h3n2_2deme.2`) and choosing the `Marginal Density` panel results in useful comparison between the sampled population size marginal posterior distributions (see [Figure 17](#fig:tracer-R0)).
-Looking at the posterior distributions we can not see any significant difference in R<sub>0</sub> between the two demes.
-While the distributions are visibly different, they cover the same parameter range (deme 1 95% HPD interval [0.9922, 1.0258], deme 2 95% HPD interval [0.9057, 1.038]), so the values are indistinguishable through such analysis.
+The tabs at the top-right of the window can be used to display one or more selected traces in various ways. We first look at the become uninfectious rate.
+
+> Select the `becomeUninfectiousRateSPEpi` trace.
+
+You should now see something similar to the figure below.
 
 <figure>
 	<a id="fig:tracer-bUR"></a>
-	<img style="width:100%;" src="figures/16-tracer-bUR.png" alt="">
-	<figcaption>Estimated become uninfectious rate marginal posterior.</figcaption>
+	<img style="width:100%;" src="figures/tracer-buRate.png" alt="">
+	<figcaption>Become uninfectious rate marginal posterior.</figcaption>
 </figure>
 <br>
 
+The 95% HPD for the parameter is fairly broad ([24, 101]), which is perhaps unsurprising given that we're only using 60 sequences here. The mean value is 59 events per host per year, which gives us an expected infectious period of just over 6 days.
+
+Next, we consider the reproductive number.
+
+> Select the two Re traces (`ReSPEpi.HongKong` and `ReSPEpi.NewZealand`) and choosing the `Marginal Density` panel.
+>
+> From the "Legend" drop-down list under the plot, select "Top-Left".
+
+Tracer now displays a comparison between the sampled population size marginal posterior distributions (see below).
+
 <figure>
 	<a id="fig:tracer-R0"></a>
-	<img style="width:100%;" src="figures/17-tracer-R0.png" alt="">
+	<img style="width:100%;" src="figures/tracer-Re.png" alt="">
 	<figcaption>Estimated R<sub>0</sub> marginal posteriors.</figcaption>
 </figure>
 <br>
 
-In the case of our pre-cooked analysis all the ESS values are greater than 200 – the arbitrary threshold for acceptability.
-However, it might happen that some values have not yet reached the appropriate ESS in the runs that you did on your own.
-If this analysis were part of a serious study you would want to run the chain for another few million iterations to improve the ESS values.
-In BEAST 2, analyses can be resumed – the samples you already have will not be wasted.
+Looking at the posterior distributions we can not see any significant difference in R<sub>0</sub> between the two demes.
+While the distributions are visibly different, they cover the same parameter range (deme 1 95% HPD interval [0.9922, 1.0258], deme 2 95% HPD interval [0.9057, 1.038]), so the values are indistinguishable through such analysis.
+
+In the case of our pre-cooked analysis all the ESS values are greater
+than 200, the arbitrary threshold for acceptability.  However, it
+might happen that some values have not yet reached the appropriate ESS
+in your own analysis.
+
+If this is the case and your analysis was part of a serious study you would want to run the chain for another few million iterations to improve the ESS values.
+(In BEAST 2, analyses can be resumed – the samples you already have need not be wasted.)
 
 ## Tree log visualization
 
 The popular phylogenetic tree visualizer [FigTree](http://tree.bio.ed.ac.uk/software/figtree/) can be used to visualize the sampled trees.
 However, Figtree can be quite slow with MultiTypeTree log files, so for this tutorial we suggest using [IcyTree](https://icytree.org/) to view tree log files.
-IcyTree is a tree viewer that runs in a web browser, which runs best under recent versions of [Google Chrome](http://www.google.com/chrome) and [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/) (in that order).
+IcyTree is a tree viewer that runs in your web browser.
 
-To view MultiTypeTree log files using IcyTree, simply navigate to the IcyTree web page, select `Load from file` from the `File` menu, then select the `h3n2-bdmmprime.h3n2_2deme.trees` tree log file using the file selection dialog.
-Alternatively, you can simply drag the log file into your browser window.
+>
+> Open the IcyTree web page in your web browser.
+>
+> Select `Load from file` from the `File` menu, then select the
+> `h3n2-bdmmprime.h3n2_2deme.trees` tree log file using the file
+> selection dialog. (Alternatively, you can simply drag the log file
+> into your browser window.)
+>
+
 Once the file is loaded you will see the first tree it contains.
 In order to select a different tree, hover the mouse pointer over the box in the lower-left corner of the window.
 This box will expand to a small dialog containing buttons allowing you to navigate between trees.
@@ -674,7 +701,7 @@ You can browse the trees from your posterior sample (as in the figure below) to 
 
 <figure>
 	<a id="fig:icyTree-trees"></a>
-	<img style="width:100%;" src="figures/18-icyTree-trees.png" alt="">
+	<img style="width:100%;" src="figures/icytree-trees.png" alt="">
 	<figcaption>An example of a sampled multi-type tree in IcyTree.</figcaption>
 </figure>
 <br>
@@ -682,7 +709,7 @@ You can browse the trees from your posterior sample (as in the figure below) to 
 
 ## Producing a summary tree using `TreeAnnotator`
 
-We can make better use of our raw analysis results by using the
+We can make better use of our analysis results by using the
 `TreeAnnotator` program which is distributed with BEAST2 to analyze
 the sample of trees which was produced by our MCMC run. Until recently
 the _maximum clade credibility_ tree (MCC) has been the default
@@ -715,7 +742,7 @@ distribution.
 > 
 > Set the **Target tree type** to the **Maximum clade credibility tree** and set **Node heights** to **Mean heights**.
 > 
-> Select the `h3n2-bdmmprime.h3n2_2deme.typed.node.trees` tree file as the input file and `h3n2-bdmmprime.h3n2_2deme.mcc_summary.trees` as the output file
+> Select the `h3n2-bdmmprime.h3n2_2deme.typed.node.trees` tree file as the input file and `h3n2-bdmmprime.h3n2_2deme.mcc_summary.tree` as the output file
 > 
 > Pressing the **Run** button will produce an annotated summary tree.
 
@@ -723,7 +750,7 @@ The setup can be seen in the figure below.
 
 <figure>
 	<a id="fig:TreeAnnotator-setup"></a>
-	<img style="width:75%;" src="figures/20-TreeAnnotator-setup.png" alt="">
+	<img style="width:75%;" src="figures/treeAnnotator-setup.png" alt="">
 	<figcaption>Use TreeAnnotator to produce a MCC summary tree.</figcaption>
 </figure>
 <br>
@@ -741,17 +768,17 @@ To produce CCD0 summary tree, you will first need to install the CCD package.
 
 <figure>
 	<a id="fig:installCCD"></a>
-	<img style="width:80%;" src="figures/installCCD0.png">
+	<img style="width:80%;" src="figures/installCCD.png">
 	<figcaption>Install CCD package</figcaption>
 </figure>
 <br>
 
-Now you can proceed to make CCD0 tree. Use the exactly same set up as for MCC tree but select **MAP (CCD0)** as **Target tree type** and `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.trees` as the output file.
+Now you can proceed to make CCD0 tree. Use the exactly same set up as for MCC tree but select **MAP (CCD0)** as **Target tree type** and `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.tree` as the output file.
 
 
 ## Visualising the summary tree
 
-To visualize this tree, open IcyTree once more (maybe open it in a new browser tab), choose `File > Load from file`, then use file selection dialog and select either select either `h3n2-bdmmprime.h3n2_2deme.mcc_summary.trees` or `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.trees` to load MCC or CCD0 summary tree respectivelly.
+To visualize this tree, open IcyTree once more (maybe open it in a new browser tab), choose `File > Load from file`, then use file selection dialog and select either select either `h3n2-bdmmprime.h3n2_2deme.mcc_summary.tree` or `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.tree` to load MCC or CCD0 summary tree respectivelly.
 Follow the instructions provided above to colour the tree by the `type` attribute and add the legend and time axis.
 In addition, open the `Style` menu and select `Node height error bars > height_95%_HPD` to add error bars to the internal node heights.
 Finally, open the `Style` menu and select `Relative edge width > type.prob`.
