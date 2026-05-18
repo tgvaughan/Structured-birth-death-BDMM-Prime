@@ -125,7 +125,7 @@ To set the working directory, select `File > Set working dir > BDMM-Prime`, as s
 </figure>
 <br>
 
-To load the file, select `File > Add Alignment`.
+To load the file, select `File > Import Alignment`.
 
 This will open a file selection dialog box.  The example influenza sequence data
 file is named `h3n2_2deme.fna`.
@@ -345,7 +345,7 @@ reproductive number to take location-specific values.
 The next parameter is the "become uninfectious rate" parameter,
 representing the rate at which infected individuals become
 uninfectious. This parameter includes the rate at which individuals
-recovering on their own, together with the rate at which they are
+are recovering on their own, together with the rate at which they are
 removed from the population due to the sampling process.  Since it is
 dictated by disease progression, this parameter is sometimes assumed
 to be a function of the pathogen itself rather than location.  That
@@ -477,7 +477,7 @@ becomes uninfectious. An average infectious interval of one week (1/52 years)
 corresponds to an average become uninfectious rate of 1/(1/52)=52 in units
 of inverse years.
 
-For our analyisis we will therefor place a Log Normal prior on the become
+For our analysis we will therefore place a Log Normal prior on the become
 uninfectious parameter with a mean of 52 and an S parameter to allow for
 some variation around this mean.
 
@@ -514,7 +514,7 @@ Again we will use a truncated `Log Normal` prior, with the mean at 10<sup>-3</su
 >
 > Select **Log Normal** from the drop-down list of distributions.
 >
-> Set the **M** value to 0.001 and the **S** value to 0.5.
+> Set the **M** value to 0.001 and the **S** value to 1.25.
 >
 > Ensure the **Mean in Real Space** checkbox is checked.
 >
@@ -537,7 +537,7 @@ For the purpose of the tutorial, we will assume that a given infected individual
 
 >
 > Expand the migration rate prior by clicking the arrow to the left of
-> migrationRateEpi.t:h3n2_2deme
+> migrationRateEpi.t:h3n2_2deme.
 >
 > Select **Exponential** from the drop-down list of distributions.
 >
@@ -545,8 +545,8 @@ For the purpose of the tutorial, we will assume that a given infected individual
 >
 
 Our use of an Exponential distribution rather than a Log Normal distribution here
-is a practical consideration to improve mixing of this tutorial analysis.  In a
-real analysis one should think carefully about how 
+is a practical consideration to improve mixing of this tutorial analysis. In a
+real analysis one should think carefully about how to set a prior for this parameter.
 
 <figure>
 	<a id="fig:mig-rate-prior"></a>
@@ -556,7 +556,7 @@ real analysis one should think carefully about how
 <br>
 
 
-We will also set the prior for the clock rate to a distribution that is in accordance with what we know about RNA viruses, which is that in general their mean substitution rate is around {% eqinline \approx %} 10^(-3).
+We will also set the prior for the clock rate to a distribution that is in accordance with what we know about seasonal influenza, i.e. it's mean substitution rate is around $5\times 10^{-3}$ substitutions per site per year.
 
 >
 > Expand the clock rate prior by clicking the arrow to the left of clockRate.c:h3n2_2deme
@@ -580,7 +580,7 @@ We will also set the prior for the clock rate to a distribution that is in accor
 We will leave the `MCMC` panel settings to their default values.
 
 >
-> Save the configuration file as h3n2-bdmmprime.xml.  (Be sure to note
+> Save the configuration file as h3n2-bdmmprime.xml. (Be sure to note
 > where you have saved it!)
 >
 
@@ -683,7 +683,7 @@ IcyTree is a tree viewer that runs in your web browser.
 > Open the IcyTree web page in your web browser.
 >
 > Select `Load from file` from the `File` menu, then select the
-> `h3n2-bdmmprime.h3n2_2deme.trees` tree log file using the file
+> `h3n2-bdmmprime.h3n2_2deme.typed.trees` tree log file using the file
 > selection dialog. (Alternatively, you can simply drag the log file
 > into your browser window.)
 >
@@ -736,13 +736,13 @@ distribution.
 
 ### Producing an MCC summary tree
 
-> Start **TreeAnnotator**
+> Start **TreeAnnotator**.
 > 
 > Set the **Burnin percentage** to **10%** to discard the first 10% of trees in the log file.
 > 
 > Set the **Target tree type** to the **Maximum clade credibility tree** and set **Node heights** to **Mean heights**.
 > 
-> Select the `h3n2-bdmmprime.h3n2_2deme.typed.node.trees` tree file as the input file and `h3n2-bdmmprime.h3n2_2deme.mcc_summary.tree` as the output file
+> Select the `h3n2-bdmmprime.h3n2_2deme.typed.node.trees` tree file as the input file and `h3n2-bdmmprime.h3n2_2deme.mcc_summary.tree` as the output file.
 > 
 > Pressing the **Run** button will produce an annotated summary tree.
 
@@ -758,13 +758,13 @@ The setup can be seen in the figure below.
 ### Producing CCD0 summary tree
 
 To produce CCD0 summary tree, you will first need to install the CCD package.
-> Open BEAUTi
+> Open BEAUTi.
 > 
-> Select **File** >> **Manage packages**
+> Select **File** > **Manage packages**.
 > 
-> Select **CCD** package in the list and select **Install/Upgrade**
+> Select **CCD** package in the list and select **Install/Upgrade**.
 > 
-> Close BEAUTi
+> Close BEAUTi.
 
 <figure>
 	<a id="fig:installCCD"></a>
@@ -782,7 +782,7 @@ We now visualise the summary trees.
 
 > Open IcyTree once more (maybe open it in a new browser tab).
 >
-> Choose `File > Load from file`, then use file selection dialog and select either select either `h3n2-bdmmprime.h3n2_2deme.mcc_summary.tree` or `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.tree` to load MCC or CCD0 summary tree, respectivelly.
+> Choose `File > Load from file`, then use file selection dialog and select either `h3n2-bdmmprime.h3n2_2deme.mcc_summary.tree` or `h3n2-bdmmprime.h3n2_2deme.ccd0_summary.tree` to load MCC or CCD0 summary tree, respectively.
 >
 > Select `Style > Colour nodes by > type` and display the legend and time axis as above.
 >
